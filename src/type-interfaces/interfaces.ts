@@ -3,3 +3,19 @@ export interface IHourlyWeatherItem {
   icon: string;
   temperature: number;
 }
+
+export interface IDailyWeatherItem {
+  date: string;
+  weekday:
+    | "monday"
+    | "tuesday"
+    | "wednesday"
+    | "thursday"
+    | "friday"
+    | "saturday"
+    | "sunday";
+  icon: string;
+  lowestTemperature: number;
+  highestTemperature: number;
+  // temperatureRange: ??
+}

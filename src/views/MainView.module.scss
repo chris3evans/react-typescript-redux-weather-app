@@ -26,20 +26,45 @@
 }
 
 .hourly-section {
-  .hourly-weather-list {
-    list-style: none;
-    display: flex;
+  margin-bottom: 5rem;
+}
+
+.hourly-weather-list {
+  display: flex;
+  align-items: center;
+
+  .hourly-weather-item {
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    grid-row-gap: 1rem;
+    text-align: center;
+
+    &:not(:last-of-type) {
+      margin-right: 10rem;
+    }
+  }
+}
+
+.daily-section {
+}
+
+.daily-weather-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .daily-weather-item {
+    display: grid;
+    grid-template-columns: 25rem 10rem 10rem 65rem 10rem;
     align-items: center;
+    justify-items: center;
 
-    .hourly-weather-item {
-      display: grid;
-      grid-template-rows: repeat(3, min-content);
-      grid-row-gap: 1rem;
+    &:not(:last-of-type) {
+      margin-bottom: 3rem;
+    }
+
+    .daily-weather-date {
       text-align: center;
-
-      &:not(:last-of-type) {
-        margin-right: 10rem;
-      }
     }
   }
 }
