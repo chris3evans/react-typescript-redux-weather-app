@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  ICurrentWeather,
   IDailyWeatherItem,
   IHourlyWeatherItem,
 } from "../type-interfaces/interfaces";
@@ -8,8 +9,6 @@ import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
 
 export function MainView() {
-  const [overviewTemperatureC, setOverviewTemperatureC] = useState<number>(0);
-
   const params = {
     latitude: 51.5085,
     longitude: -0.1257,
@@ -28,7 +27,11 @@ export function MainView() {
   };
   const url = "https://api.open-meteo.com/v1/forecast";
 
-  const { data } = useQuery({
+  const {
+    data: currentWeather,
+    isPending,
+    isError,
+  } = useQuery({
     queryKey: ["current-weather"],
     queryFn: async () => {
       const response = await fetchWeatherApi(url, params);
@@ -50,75 +53,9 @@ export function MainView() {
           relativeHumidity2m: current.variables(8)!.value(),
         },
       };
-      // setOverviewTemperatureC(
-      //   Number(weatherData.current.temperature2m.toFixed(2))
-      // );
-      // console.log(weatherData, "data recieved 1");
     },
   });
-  console.log(data, "data");
 
-  // useEffect(() => {
-  //   const fetchCurrentWeather = async () => {
-  //     try {
-  //       const response = await fetchWeatherApi(url, params);
-  //       const data = response[0];
-  //       const current = data.current()!;
-  //       const utcOffsetSeconds = data.utcOffsetSeconds();
-
-  //       const weatherData = {
-  //         current: {
-  //           time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-  //           temperature2m: current.variables(0)!.value(),
-  //           precipitation: current.variables(1)!.value(),
-  //           rain: current.variables(2)!.value(),
-  //           cloudCover: current.variables(3)!.value(),
-  //           windSpeed10m: current.variables(4)!.value(),
-  //           windDirection10m: current.variables(5)!.value(),
-  //           showers: current.variables(6)!.value(),
-  //           snowfall: current.variables(7)!.value(),
-  //           relativeHumidity2m: current.variables(8)!.value(),
-  //         },
-  //       };
-  //       setOverviewTemperatureC(
-  //         Number(weatherData.current.temperature2m.toFixed(2))
-  //       );
-  //       console.log(weatherData, "data recieved 1");
-  //     } catch (error) {
-  //       console.error("Could not retrieve the weather data 1", error);
-  //     }
-  //   };
-  //   fetchCurrentWeather();
-
-  // fetchWeatherApi(url, params)
-  //   .then((data) => {
-  //     const response = data[0];
-  //     const current = response.current()!;
-  //     const utcOffsetSeconds = response.utcOffsetSeconds();
-
-  //     const weatherData = {
-  //       current: {
-  //         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-  //         temperature2m: current.variables(0)!.value(),
-  //         precipitation: current.variables(1)!.value(),
-  //         rain: current.variables(2)!.value(),
-  //         cloudCover: current.variables(3)!.value(),
-  //         windSpeed10m: current.variables(4)!.value(),
-  //         windDirection10m: current.variables(5)!.value(),
-  //         showers: current.variables(6)!.value(),
-  //         snowfall: current.variables(7)!.value(),
-  //         relativeHumidity2m: current.variables(8)!.value(),
-  //       },
-  //     };
-  //     setOverviewTemperatureC(
-  //       Number(weatherData.current.temperature2m.toFixed(2))
-  //     );
-  //     console.log(weatherData, "data recieved");
-  //   })
-  //   .catch((error) => {
-  //     console.error("Could not retrieve the weather data", error);
-  //   });
-  // });
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
       temperature: 20,
@@ -235,7 +172,7 @@ export function MainView() {
       <div className={styles["overview-section"]}>
         <h2 className={styles["overview-location"]}>Maidenhead</h2>
         <h1 className={styles["overview-temperature"]}>
-          {overviewTemperatureC}°C
+          {Number(currentWeather?.current.temperature2m.toFixed(2))}°C
         </h1>
         <h3 className={styles["overview-condition"]}>Sunny with clouds</h3>
       </div>
