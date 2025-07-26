@@ -5,6 +5,7 @@ import {
 } from "../type-interfaces/interfaces";
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
+import { useQuery } from "@tanstack/react-query";
 
 export function MainView() {
   const [overviewTemperatureC, setOverviewTemperatureC] = useState<number>(0);
@@ -27,67 +28,97 @@ export function MainView() {
   };
   const url = "https://api.open-meteo.com/v1/forecast";
 
-  useEffect(() => {
-    const fetchCurrentWeather = async () => {
-      try {
-        const response = await fetchWeatherApi(url, params);
-        const data = response[0];
-        const current = data.current()!;
-        const utcOffsetSeconds = data.utcOffsetSeconds();
+  const { data } = useQuery({
+    queryKey: ["current-weather"],
+    queryFn: async () => {
+      const response = await fetchWeatherApi(url, params);
+      const data = response[0];
+      const current = data.current()!;
+      const utcOffsetSeconds = data.utcOffsetSeconds();
 
-        const weatherData = {
-          current: {
-            time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-            temperature2m: current.variables(0)!.value(),
-            precipitation: current.variables(1)!.value(),
-            rain: current.variables(2)!.value(),
-            cloudCover: current.variables(3)!.value(),
-            windSpeed10m: current.variables(4)!.value(),
-            windDirection10m: current.variables(5)!.value(),
-            showers: current.variables(6)!.value(),
-            snowfall: current.variables(7)!.value(),
-            relativeHumidity2m: current.variables(8)!.value(),
-          },
-        };
-        setOverviewTemperatureC(
-          Number(weatherData.current.temperature2m.toFixed(2))
-        );
-        console.log(weatherData, "data recieved 1");
-      } catch (error) {
-        console.error("Could not retrieve the weather data 1", error);
-      }
-    };
-    fetchCurrentWeather();
-
-    // fetchWeatherApi(url, params)
-    //   .then((data) => {
-    //     const response = data[0];
-    //     const current = response.current()!;
-    //     const utcOffsetSeconds = response.utcOffsetSeconds();
-
-    //     const weatherData = {
-    //       current: {
-    //         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-    //         temperature2m: current.variables(0)!.value(),
-    //         precipitation: current.variables(1)!.value(),
-    //         rain: current.variables(2)!.value(),
-    //         cloudCover: current.variables(3)!.value(),
-    //         windSpeed10m: current.variables(4)!.value(),
-    //         windDirection10m: current.variables(5)!.value(),
-    //         showers: current.variables(6)!.value(),
-    //         snowfall: current.variables(7)!.value(),
-    //         relativeHumidity2m: current.variables(8)!.value(),
-    //       },
-    //     };
-    //     setOverviewTemperatureC(
-    //       Number(weatherData.current.temperature2m.toFixed(2))
-    //     );
-    //     console.log(weatherData, "data recieved");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Could not retrieve the weather data", error);
-    //   });
+      return {
+        current: {
+          time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+          temperature2m: current.variables(0)!.value(),
+          precipitation: current.variables(1)!.value(),
+          rain: current.variables(2)!.value(),
+          cloudCover: current.variables(3)!.value(),
+          windSpeed10m: current.variables(4)!.value(),
+          windDirection10m: current.variables(5)!.value(),
+          showers: current.variables(6)!.value(),
+          snowfall: current.variables(7)!.value(),
+          relativeHumidity2m: current.variables(8)!.value(),
+        },
+      };
+      // setOverviewTemperatureC(
+      //   Number(weatherData.current.temperature2m.toFixed(2))
+      // );
+      // console.log(weatherData, "data recieved 1");
+    },
   });
+  console.log(data, "data");
+
+  // useEffect(() => {
+  //   const fetchCurrentWeather = async () => {
+  //     try {
+  //       const response = await fetchWeatherApi(url, params);
+  //       const data = response[0];
+  //       const current = data.current()!;
+  //       const utcOffsetSeconds = data.utcOffsetSeconds();
+
+  //       const weatherData = {
+  //         current: {
+  //           time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+  //           temperature2m: current.variables(0)!.value(),
+  //           precipitation: current.variables(1)!.value(),
+  //           rain: current.variables(2)!.value(),
+  //           cloudCover: current.variables(3)!.value(),
+  //           windSpeed10m: current.variables(4)!.value(),
+  //           windDirection10m: current.variables(5)!.value(),
+  //           showers: current.variables(6)!.value(),
+  //           snowfall: current.variables(7)!.value(),
+  //           relativeHumidity2m: current.variables(8)!.value(),
+  //         },
+  //       };
+  //       setOverviewTemperatureC(
+  //         Number(weatherData.current.temperature2m.toFixed(2))
+  //       );
+  //       console.log(weatherData, "data recieved 1");
+  //     } catch (error) {
+  //       console.error("Could not retrieve the weather data 1", error);
+  //     }
+  //   };
+  //   fetchCurrentWeather();
+
+  // fetchWeatherApi(url, params)
+  //   .then((data) => {
+  //     const response = data[0];
+  //     const current = response.current()!;
+  //     const utcOffsetSeconds = response.utcOffsetSeconds();
+
+  //     const weatherData = {
+  //       current: {
+  //         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+  //         temperature2m: current.variables(0)!.value(),
+  //         precipitation: current.variables(1)!.value(),
+  //         rain: current.variables(2)!.value(),
+  //         cloudCover: current.variables(3)!.value(),
+  //         windSpeed10m: current.variables(4)!.value(),
+  //         windDirection10m: current.variables(5)!.value(),
+  //         showers: current.variables(6)!.value(),
+  //         snowfall: current.variables(7)!.value(),
+  //         relativeHumidity2m: current.variables(8)!.value(),
+  //       },
+  //     };
+  //     setOverviewTemperatureC(
+  //       Number(weatherData.current.temperature2m.toFixed(2))
+  //     );
+  //     console.log(weatherData, "data recieved");
+  //   })
+  //   .catch((error) => {
+  //     console.error("Could not retrieve the weather data", error);
+  //   });
+  // });
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
       temperature: 20,
