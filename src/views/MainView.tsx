@@ -174,6 +174,7 @@ export function MainView() {
         <h1 className={styles["overview-temperature"]}>
           {Number(currentWeather?.current.temperature2m.toFixed(2))}°C
         </h1>
+
         <h3 className={styles["overview-condition"]}>Sunny with clouds</h3>
       </div>
 
