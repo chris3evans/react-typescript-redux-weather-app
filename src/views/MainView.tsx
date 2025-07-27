@@ -8,7 +8,7 @@ import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../state/reducer";
+import { AppDispatch } from "../state/store";
 import { example } from "../state/slices/exampleSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 
