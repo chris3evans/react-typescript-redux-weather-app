@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IExampleState {
   exampleNumber: number;
+  exampleText: string;
 }
 
 const initialState: IExampleState = {
   exampleNumber: 0,
+  exampleText: "I started like this",
 };
 
 export const exampleSlice = createSlice({
@@ -16,12 +17,12 @@ export const exampleSlice = createSlice({
     example: (state) => {
       state.exampleNumber += 1;
     },
+    example2: (state, action: PayloadAction<string>) => {
+      state.exampleText = action.payload;
+    },
   },
 });
 
-export const { example } = exampleSlice.actions;
-
-export const selectExampleNumber = (state: RootState) =>
-  state.example.exampleNumber;
+export const { example, example2 } = exampleSlice.actions;
 
 export default exampleSlice.reducer;

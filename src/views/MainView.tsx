@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
 import {
-  ICurrentWeather,
   IDailyWeatherItem,
   IHourlyWeatherItem,
 } from "../type-interfaces/interfaces";
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../state/store";
-import { example } from "../state/slices/exampleSlice";
+import { example, example2 } from "../state/slices/exampleSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 
 export function MainView() {
@@ -62,6 +58,8 @@ export function MainView() {
 
   const exampleNumber = useAppSelector((state) => state.example.exampleNumber);
   const dispatch = useAppDispatch();
+
+  const exampleText = useAppSelector((state) => state.example.exampleText);
 
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
@@ -176,7 +174,8 @@ export function MainView() {
 
   return (
     <div className={styles["main-view"]}>
-      <div>1{exampleNumber}</div>
+      <div>{exampleNumber}</div>
+      <div>{exampleText}</div>
       <div className={styles["overview-section"]}>
         <h2
           className={styles["overview-location"]}
@@ -184,7 +183,10 @@ export function MainView() {
         >
           Maidenhead
         </h2>
-        <h1 className={styles["overview-temperature"]}>
+        <h1
+          onClick={() => dispatch(example2("Text has updated!"))}
+          className={styles["overview-temperature"]}
+        >
           {Number(currentWeather?.current.temperature2m.toFixed(2))}°C
         </h1>
 
