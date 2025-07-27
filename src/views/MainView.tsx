@@ -5,8 +5,9 @@ import {
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
-import { example, example2 } from "../state/slices/exampleSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { setValues } from "../state/slices/currentWeatherSlice";
+import { useEffect } from "react";
 
 export function MainView() {
   const params = {
@@ -56,10 +57,14 @@ export function MainView() {
     },
   });
 
-  const exampleNumber = useAppSelector((state) => state.example.exampleNumber);
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (currentWeather?.current) {
+      dispatch(setValues(currentWeather.current));
+    }
+  }, [currentWeather]);
 
-  const exampleText = useAppSelector((state) => state.example.exampleText);
+  const dispatch = useAppDispatch();
+  const currentWeatherValues = useAppSelector((state) => state.currentWeather);
 
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
@@ -174,20 +179,10 @@ export function MainView() {
 
   return (
     <div className={styles["main-view"]}>
-      <div>{exampleNumber}</div>
-      <div>{exampleText}</div>
       <div className={styles["overview-section"]}>
-        <h2
-          className={styles["overview-location"]}
-          onClick={() => dispatch(example())}
-        >
-          Maidenhead
-        </h2>
-        <h1
-          onClick={() => dispatch(example2("Text has updated!"))}
-          className={styles["overview-temperature"]}
-        >
-          {Number(currentWeather?.current.temperature2m.toFixed(2))}°C
+        <h2 className={styles["overview-location"]}>Maidenhead</h2>
+        <h1 className={styles["overview-temperature"]}>
+          {Number(currentWeatherValues.temperature2m.toFixed(2))}°C
         </h1>
 
         <h3 className={styles["overview-condition"]}>Sunny with clouds</h3>
