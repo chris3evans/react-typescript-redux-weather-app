@@ -7,6 +7,10 @@ import {
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../state/reducer";
+import { example } from "../state/slices/exampleSlice";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
 
 export function MainView() {
   const params = {
@@ -55,6 +59,9 @@ export function MainView() {
       };
     },
   });
+
+  const exampleNumber = useAppSelector((state) => state.example.exampleNumber);
+  const dispatch = useAppDispatch();
 
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
@@ -169,8 +176,14 @@ export function MainView() {
 
   return (
     <div className={styles["main-view"]}>
+      <div>1{exampleNumber}</div>
       <div className={styles["overview-section"]}>
-        <h2 className={styles["overview-location"]}>Maidenhead</h2>
+        <h2
+          className={styles["overview-location"]}
+          onClick={() => dispatch(example())}
+        >
+          Maidenhead
+        </h2>
         <h1 className={styles["overview-temperature"]}>
           {Number(currentWeather?.current.temperature2m.toFixed(2))}°C
         </h1>
