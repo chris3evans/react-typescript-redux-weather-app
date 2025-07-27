@@ -93,48 +93,12 @@ export function MainView() {
   }, [currentWeather, hourlyWeather]);
 
   const dispatch = useAppDispatch();
-  const currentWeatherValues = useAppSelector((state) => state.currentWeather);
+  const selectCurrentWeatherValues = useAppSelector(
+    (state) => state.currentWeather
+  );
   const selectHourlyWeatherValues = useAppSelector(
     (state) => state.hourlyWeather.hours
   );
-
-  const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
-    {
-      temperature: 20,
-      icon: "*ICON*",
-      time: "09:00",
-    },
-    {
-      temperature: 22,
-      icon: "*ICON*",
-      time: "10:00",
-    },
-    {
-      temperature: 23,
-      icon: "*ICON*",
-      time: "11:00",
-    },
-    {
-      temperature: 25,
-      icon: "*ICON*",
-      time: "12:00",
-    },
-    {
-      temperature: 28,
-      icon: "*ICON*",
-      time: "13:00",
-    },
-    {
-      temperature: 30,
-      icon: "*ICON*",
-      time: "14:00",
-    },
-    {
-      temperature: 29,
-      icon: "*ICON*",
-      time: "15:00",
-    },
-  ];
 
   const mockDailyWeatherItems: IDailyWeatherItem[] = [
     {
@@ -214,7 +178,7 @@ export function MainView() {
       <div className={styles["overview-section"]}>
         <h2 className={styles["overview-location"]}>Maidenhead</h2>
         <h1 className={styles["overview-temperature"]}>
-          {Number(currentWeatherValues.temperature2m.toFixed(2))}°C
+          {Number(selectCurrentWeatherValues.temperature2m.toFixed(2))}°C
         </h1>
 
         <h3 className={styles["overview-condition"]}>Sunny with clouds</h3>
@@ -235,15 +199,6 @@ export function MainView() {
               return;
             }
           })}
-          {/* {mockHourlyWeatherItems.map((hourlyWeatherItem, i) => {
-            return (
-              <li key={i} className={styles["hourly-weather-item"]}>
-                <h4>{hourlyWeatherItem.time}</h4>
-                <div>{hourlyWeatherItem.icon}</div>
-                <h4>{hourlyWeatherItem.temperature}</h4>
-              </li>
-            );
-          })} */}
         </ul>
       </div>
 
