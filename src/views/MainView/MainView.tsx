@@ -1,57 +1,81 @@
 import {
   IDailyWeatherItem,
   IHourlyWeatherItem,
-} from "../type-interfaces/interfaces";
+} from "../../type-interfaces/interfaces";
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { setValues } from "../state/slices/currentWeatherSlice";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect } from "react";
 
 export function MainView() {
-  const params = {
+  const currentWeatherParams = {
     latitude: 51.5085,
     longitude: -0.1257,
     models: "ukmo_seamless",
-    current: [
-      "temperature_2m",
-      "precipitation",
-      "rain",
-      "cloud_cover",
-      "wind_speed_10m",
-      "wind_direction_10m",
-      "showers",
-      "snowfall",
-      "relative_humidity_2m",
-    ],
+    current: ["temperature_2m"],
   };
   const url = "https://api.open-meteo.com/v1/forecast";
 
   const {
     data: currentWeather,
-    isPending,
-    isError,
+    // isPending,
+    // isError,
   } = useQuery({
     queryKey: ["current-weather"],
     queryFn: async () => {
-      const response = await fetchWeatherApi(url, params);
+      const response = await fetchWeatherApi(url, currentWeatherParams);
       const data = response[0];
       const current = data.current()!;
       const utcOffsetSeconds = data.utcOffsetSeconds();
 
       return {
         current: {
-          time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+          time: new Date(
+            (Number(current.time()) + utcOffsetSeconds) * 1000
+          ).toISOString(),
           temperature2m: current.variables(0)!.value(),
-          precipitation: current.variables(1)!.value(),
-          rain: current.variables(2)!.value(),
-          cloudCover: current.variables(3)!.value(),
-          windSpeed10m: current.variables(4)!.value(),
-          windDirection10m: current.variables(5)!.value(),
-          showers: current.variables(6)!.value(),
-          snowfall: current.variables(7)!.value(),
-          relativeHumidity2m: current.variables(8)!.value(),
+        },
+      };
+    },
+  });
+
+  const hourlyWeatherParams = {
+    latitude: 51.5085,
+    longitude: -0.1257,
+    hourly: "temperature_2m",
+    models: "ukmo_seamless",
+  };
+
+  const {
+    data: hourlyWeather,
+    // isPending,
+    // isError
+  } = useQuery({
+    queryKey: ["hourly-weather"],
+    queryFn: async () => {
+      const response = await fetchWeatherApi(url, hourlyWeatherParams);
+      const data = response[0];
+      const hourly = data.hourly()!;
+      const utcOffsetSeconds = data.utcOffsetSeconds();
+
+      return {
+        hourly: {
+          time: [
+            ...Array(
+              (Number(hourly.timeEnd()) - Number(hourly.time())) /
+                hourly.interval()
+            ),
+          ].map((_, i) =>
+            new Date(
+              (Number(hourly.time()) +
+                i * hourly.interval() +
+                utcOffsetSeconds) *
+                1000
+            ).toISOString()
+          ),
+          temperature2m: hourly.variables(0)!.valuesArray()!,
         },
       };
     },
@@ -176,6 +200,8 @@ export function MainView() {
       highestTemperature: 34,
     },
   ];
+
+  console.log(hourlyWeather, "hourly weather");
 
   return (
     <div className={styles["main-view"]}>

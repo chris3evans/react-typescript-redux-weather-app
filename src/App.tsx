@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { MainView } from "./views/MainView";
+import { MainView } from "./views/MainView/MainView";
 
 function App() {
   return (
