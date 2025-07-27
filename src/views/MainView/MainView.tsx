@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect } from "react";
+import { setHours } from "../../state/slices/hourlyWeatherSlice";
 
 export function MainView() {
   const currentWeatherParams = {
@@ -75,7 +76,7 @@ export function MainView() {
                 1000
             ).toISOString()
           ),
-          temperature2m: hourly.variables(0)!.valuesArray()!,
+          temperature2m: Array.from(hourly.variables(0)!.valuesArray()!),
         },
       };
     },
@@ -85,10 +86,17 @@ export function MainView() {
     if (currentWeather?.current) {
       dispatch(setValues(currentWeather.current));
     }
-  }, [currentWeather]);
+
+    if (hourlyWeather?.hourly) {
+      dispatch(setHours(hourlyWeather));
+    }
+  }, [currentWeather, hourlyWeather]);
 
   const dispatch = useAppDispatch();
   const currentWeatherValues = useAppSelector((state) => state.currentWeather);
+  const selectHourlyWeatherValues = useAppSelector(
+    (state) => state.hourlyWeather.hours
+  );
 
   const mockHourlyWeatherItems: IHourlyWeatherItem[] = [
     {
@@ -201,8 +209,6 @@ export function MainView() {
     },
   ];
 
-  console.log(hourlyWeather, "hourly weather");
-
   return (
     <div className={styles["main-view"]}>
       <div className={styles["overview-section"]}>
@@ -216,7 +222,20 @@ export function MainView() {
 
       <div className={styles["hourly-section"]}>
         <ul className={styles["hourly-weather-list"]}>
-          {mockHourlyWeatherItems.map((hourlyWeatherItem, i) => {
+          {selectHourlyWeatherValues.map((hourlyWeatherItem, i) => {
+            if (i <= 7) {
+              return (
+                <li key={i} className={styles["hourly-weather-item"]}>
+                  <h4>{hourlyWeatherItem.time}</h4>
+                  <div>{hourlyWeatherItem.icon}</div>
+                  <h4>{hourlyWeatherItem.temperature}°C</h4>
+                </li>
+              );
+            } else {
+              return;
+            }
+          })}
+          {/* {mockHourlyWeatherItems.map((hourlyWeatherItem, i) => {
             return (
               <li key={i} className={styles["hourly-weather-item"]}>
                 <h4>{hourlyWeatherItem.time}</h4>
@@ -224,7 +243,7 @@ export function MainView() {
                 <h4>{hourlyWeatherItem.temperature}</h4>
               </li>
             );
-          })}
+          })} */}
         </ul>
       </div>
 
