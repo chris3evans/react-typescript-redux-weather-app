@@ -82,6 +82,47 @@ export function MainView() {
     },
   });
 
+  const dailyWeatherParams = {
+    latitude: 52.52,
+    longitude: 13.41,
+    daily: ["temperature_2m_max", "temperature_2m_min"],
+  };
+
+  const {
+    data: dailyWeather,
+    // isPending
+    // isError
+  } = useQuery({
+    queryKey: ["daily-weather"],
+    queryFn: async () => {
+      const response = await fetchWeatherApi(url, dailyWeatherParams);
+      const data = response[0];
+      const daily = data.daily()!;
+      const utcOffsetSeconds = data.utcOffsetSeconds();
+
+      return {
+        daily: {
+          time: [
+            ...Array(
+              (Number(daily.timeEnd()) - Number(daily.time())) /
+                daily.interval()
+            ),
+          ].map(
+            (_, i) =>
+              new Date(
+                (Number(daily.time()) +
+                  i * daily.interval() +
+                  utcOffsetSeconds) *
+                  1000
+              )
+          ),
+          temperature_2m_max: daily.variables(0)!.valuesArray(),
+          temperature_2m_min: daily.variables(1)!.valuesArray(),
+        },
+      };
+    },
+  });
+
   useEffect(() => {
     if (currentWeather?.current) {
       dispatch(setValues(currentWeather.current));
@@ -90,7 +131,10 @@ export function MainView() {
     if (hourlyWeather?.hourly) {
       dispatch(setHours(hourlyWeather));
     }
-  }, [currentWeather, hourlyWeather]);
+    if (dailyWeather?.daily) {
+      console.log(dailyWeather.daily);
+    }
+  }, [currentWeather, hourlyWeather, dailyWeather]);
 
   const dispatch = useAppDispatch();
   const selectCurrentWeatherValues = useAppSelector(
