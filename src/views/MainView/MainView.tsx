@@ -9,37 +9,21 @@ import { setDays } from "../../state/slices/dailyWeatherSlice";
 import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
 import { HourlyWeatherSection } from "../../components/Main View/HourlyWeatherSection/HourlyWeatherSection";
 import { DailyWeatherSection } from "../../components/Main View/DailyWeatherSection/DailyWeatherSection";
+import { fetchCurrentWeather } from "../../api/weather-api-service";
+import {
+  CURRENT_WEATHER_PARAMS,
+  WEATHER_API_URL,
+} from "../../api/weather-api-parameters";
 
 export function MainView() {
-  const currentWeatherParams = {
-    latitude: 51.5085,
-    longitude: -0.1257,
-    models: "ukmo_seamless",
-    current: ["temperature_2m"],
-  };
-  const url = "https://api.open-meteo.com/v1/forecast";
-
   const {
     data: currentWeather,
     // isPending,
     // isError,
   } = useQuery({
     queryKey: ["current-weather"],
-    queryFn: async () => {
-      const response = await fetchWeatherApi(url, currentWeatherParams);
-      const data = response[0];
-      const current = data.current()!;
-      const utcOffsetSeconds = data.utcOffsetSeconds();
-
-      return {
-        current: {
-          time: new Date(
-            (Number(current.time()) + utcOffsetSeconds) * 1000
-          ).toISOString(),
-          temperature2m: current.variables(0)!.value(),
-        },
-      };
-    },
+    queryFn: async () =>
+      fetchCurrentWeather(WEATHER_API_URL, CURRENT_WEATHER_PARAMS),
   });
 
   const hourlyWeatherParams = {
@@ -56,7 +40,10 @@ export function MainView() {
   } = useQuery({
     queryKey: ["hourly-weather"],
     queryFn: async () => {
-      const response = await fetchWeatherApi(url, hourlyWeatherParams);
+      const response = await fetchWeatherApi(
+        WEATHER_API_URL,
+        hourlyWeatherParams
+      );
       const data = response[0];
       const hourly = data.hourly()!;
       const utcOffsetSeconds = data.utcOffsetSeconds();
@@ -95,7 +82,10 @@ export function MainView() {
   } = useQuery({
     queryKey: ["daily-weather"],
     queryFn: async () => {
-      const response = await fetchWeatherApi(url, dailyWeatherParams);
+      const response = await fetchWeatherApi(
+        WEATHER_API_URL,
+        dailyWeatherParams
+      );
       const data = response[0];
       const daily = data.daily()!;
       const utcOffsetSeconds = data.utcOffsetSeconds();
