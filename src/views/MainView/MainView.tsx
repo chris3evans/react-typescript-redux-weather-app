@@ -9,9 +9,13 @@ import { setDays } from "../../state/slices/dailyWeatherSlice";
 import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
 import { HourlyWeatherSection } from "../../components/Main View/HourlyWeatherSection/HourlyWeatherSection";
 import { DailyWeatherSection } from "../../components/Main View/DailyWeatherSection/DailyWeatherSection";
-import { fetchCurrentWeather } from "../../api/weather-api-service";
+import {
+  fetchCurrentWeather,
+  fetchHourlyWeather,
+} from "../../api/weather-api-service";
 import {
   CURRENT_WEATHER_PARAMS,
+  HOURLY_WEATHER_PARAMS,
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
 
@@ -26,47 +30,14 @@ export function MainView() {
       fetchCurrentWeather(WEATHER_API_URL, CURRENT_WEATHER_PARAMS),
   });
 
-  const hourlyWeatherParams = {
-    latitude: 51.5085,
-    longitude: -0.1257,
-    hourly: "temperature_2m",
-    models: "ukmo_seamless",
-  };
-
   const {
     data: hourlyWeather,
     // isPending,
     // isError
   } = useQuery({
     queryKey: ["hourly-weather"],
-    queryFn: async () => {
-      const response = await fetchWeatherApi(
-        WEATHER_API_URL,
-        hourlyWeatherParams
-      );
-      const data = response[0];
-      const hourly = data.hourly()!;
-      const utcOffsetSeconds = data.utcOffsetSeconds();
-
-      return {
-        hourly: {
-          time: [
-            ...Array(
-              (Number(hourly.timeEnd()) - Number(hourly.time())) /
-                hourly.interval()
-            ),
-          ].map((_, i) =>
-            new Date(
-              (Number(hourly.time()) +
-                i * hourly.interval() +
-                utcOffsetSeconds) *
-                1000
-            ).toISOString()
-          ),
-          temperature2m: Array.from(hourly.variables(0)!.valuesArray()!),
-        },
-      };
-    },
+    queryFn: async () =>
+      fetchHourlyWeather(WEATHER_API_URL, HOURLY_WEATHER_PARAMS),
   });
 
   const dailyWeatherParams = {

@@ -1,6 +1,12 @@
 import { fetchWeatherApi } from "openmeteo";
-import { ICurrentWeatherParams } from "../type-interfaces/api-param-interfaces";
-import { ICurrentWeatherResponse } from "../type-interfaces/api-return-interfaces";
+import {
+  ICurrentWeatherParams,
+  IHourlyWeatherParams,
+} from "../type-interfaces/api-param-interfaces";
+import {
+  ICurrentWeatherResponse,
+  IHourlyWeatherResponse,
+} from "../type-interfaces/api-return-interfaces";
 
 const params = {
   latitude: 51.5085,
@@ -26,6 +32,32 @@ export async function fetchCurrentWeather(
         (Number(current.time()) + utcOffsetSeconds) * 1000
       ).toISOString(),
       temperature2m: current.variables(0)!.value(),
+    },
+  };
+}
+
+export async function fetchHourlyWeather(
+  url: string,
+  params: IHourlyWeatherParams
+): Promise<IHourlyWeatherResponse> {
+  const response = await fetchWeatherApi(url, params);
+  const data = response[0];
+  const hourly = data.hourly()!;
+  const utcOffsetSeconds = data.utcOffsetSeconds();
+
+  return {
+    hourly: {
+      time: [
+        ...Array(
+          (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval()
+        ),
+      ].map((_, i) =>
+        new Date(
+          (Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) *
+            1000
+        ).toISOString()
+      ),
+      temperature2m: Array.from(hourly.variables(0)!.valuesArray()!),
     },
   };
 }

@@ -1,4 +1,7 @@
-import { ICurrentWeatherParams } from "../type-interfaces/api-param-interfaces";
+import {
+  ICurrentWeatherParams,
+  IHourlyWeatherParams,
+} from "../type-interfaces/api-param-interfaces";
 
 export const WEATHER_API_URL: string = "https://api.open-meteo.com/v1/forecast";
 
@@ -7,4 +10,11 @@ export const CURRENT_WEATHER_PARAMS: ICurrentWeatherParams = {
   longitude: -0.1257,
   models: "ukmo_seamless",
   current: ["temperature_2m"],
+};
+
+export const HOURLY_WEATHER_PARAMS: IHourlyWeatherParams = {
+  latitude: 51.5085,
+  longitude: -0.1257,
+  hourly: "temperature_2m",
+  models: "ukmo_seamless",
 };
