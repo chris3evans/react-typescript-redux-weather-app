@@ -1,7 +1,3 @@
-import {
-  IDailyWeatherItem,
-  IHourlyWeatherItem,
-} from "../../type-interfaces/interfaces";
 import styles from "./MainView.module.scss";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +6,7 @@ import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect } from "react";
 import { setHours } from "../../state/slices/hourlyWeatherSlice";
 import { setDays } from "../../state/slices/dailyWeatherSlice";
+import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
 
 export function MainView() {
   const currentWeatherParams = {
@@ -145,9 +142,6 @@ export function MainView() {
   }, [currentWeather, hourlyWeather, dailyWeather]);
 
   const dispatch = useAppDispatch();
-  const selectCurrentWeatherValues = useAppSelector(
-    (state) => state.currentWeather
-  );
   const selectHourlyWeatherValues = useAppSelector(
     (state) => state.hourlyWeather.hours
   );
@@ -157,14 +151,7 @@ export function MainView() {
 
   return (
     <div className={styles["main-view"]}>
-      <div className={styles["overview-section"]}>
-        <h2 className={styles["overview-location"]}>Maidenhead</h2>
-        <h1 className={styles["overview-temperature"]}>
-          {Number(selectCurrentWeatherValues.temperature2m.toFixed(2))}°C
-        </h1>
-
-        <h3 className={styles["overview-condition"]}>Sunny with clouds</h3>
-      </div>
+      <OverViewSection></OverViewSection>
 
       <div className={styles["hourly-section"]}>
         <ul className={styles["hourly-weather-list"]}>
@@ -197,9 +184,9 @@ export function MainView() {
                   <p>{dailyWeatherItem.date}</p>
                 </div>
                 <div>{dailyWeatherItem.icon}</div>
-                <h3>{dailyWeatherItem.lowestTemperature}</h3>
+                <h3>{dailyWeatherItem.lowestTemperature}°C</h3>
                 <div>*Temperature Range*</div>
-                <h3>{dailyWeatherItem.highestTemperature}</h3>
+                <h3>{dailyWeatherItem.highestTemperature}°C</h3>
               </li>
             );
           })}

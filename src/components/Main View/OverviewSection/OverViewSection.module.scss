@@ -1,0 +1,17 @@
+.overview-section {
+  display: grid;
+  grid-auto-rows: min-content;
+  justify-content: center;
+  width: min-content;
+  text-align: center;
+  margin-bottom: 5rem;
+
+  .overview-location {
+  }
+
+  .overview-temperature {
+  }
+
+  .overview-condition {
+  }
+}
