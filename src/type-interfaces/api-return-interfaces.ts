@@ -11,3 +11,11 @@ export interface IHourlyWeatherResponse {
     temperature2m: number[];
   };
 }
+
+export interface IDailyWeatherResponse {
+  daily: {
+    time: string[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+  };
+}

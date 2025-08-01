@@ -1,10 +1,12 @@
 import { fetchWeatherApi } from "openmeteo";
 import {
   ICurrentWeatherParams,
+  IDailyWeatherParams,
   IHourlyWeatherParams,
 } from "../type-interfaces/api-param-interfaces";
 import {
   ICurrentWeatherResponse,
+  IDailyWeatherResponse,
   IHourlyWeatherResponse,
 } from "../type-interfaces/api-return-interfaces";
 
@@ -58,6 +60,43 @@ export async function fetchHourlyWeather(
         ).toISOString()
       ),
       temperature2m: Array.from(hourly.variables(0)!.valuesArray()!),
+    },
+  };
+}
+
+export async function fetchDailyWeather(
+  url: string,
+  params: IDailyWeatherParams
+): Promise<IDailyWeatherResponse> {
+  const response = await fetchWeatherApi(url, params);
+  const data = response[0];
+  const daily = data.daily()!;
+  const utcOffsetSeconds = data.utcOffsetSeconds();
+
+  return {
+    daily: {
+      time: [
+        ...Array(
+          (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval()
+        ),
+      ].map((_, i) =>
+        new Date(
+          (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
+            1000
+        ).toISOString()
+      ),
+      temperature_2m_max: Array.from(
+        daily
+          .variables(0)!
+          .valuesArray()!
+          .map((num) => num)
+      ),
+      temperature_2m_min: Array.from(
+        daily
+          .variables(1)!
+          .valuesArray()!
+          .map((num) => num)
+      ),
     },
   };
 }

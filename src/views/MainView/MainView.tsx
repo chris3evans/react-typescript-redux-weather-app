@@ -11,10 +11,12 @@ import { HourlyWeatherSection } from "../../components/Main View/HourlyWeatherSe
 import { DailyWeatherSection } from "../../components/Main View/DailyWeatherSection/DailyWeatherSection";
 import {
   fetchCurrentWeather,
+  fetchDailyWeather,
   fetchHourlyWeather,
 } from "../../api/weather-api-service";
 import {
   CURRENT_WEATHER_PARAMS,
+  DAILY_WEATHER_PARAMS,
   HOURLY_WEATHER_PARAMS,
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
@@ -40,55 +42,14 @@ export function MainView() {
       fetchHourlyWeather(WEATHER_API_URL, HOURLY_WEATHER_PARAMS),
   });
 
-  const dailyWeatherParams = {
-    latitude: 52.52,
-    longitude: 13.41,
-    daily: ["temperature_2m_max", "temperature_2m_min"],
-  };
-
   const {
     data: dailyWeather,
     // isPending
     // isError
   } = useQuery({
     queryKey: ["daily-weather"],
-    queryFn: async () => {
-      const response = await fetchWeatherApi(
-        WEATHER_API_URL,
-        dailyWeatherParams
-      );
-      const data = response[0];
-      const daily = data.daily()!;
-      const utcOffsetSeconds = data.utcOffsetSeconds();
-
-      return {
-        daily: {
-          time: [
-            ...Array(
-              (Number(daily.timeEnd()) - Number(daily.time())) /
-                daily.interval()
-            ),
-          ].map((_, i) =>
-            new Date(
-              (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
-                1000
-            ).toISOString()
-          ),
-          temperature_2m_max: Array.from(
-            daily
-              .variables(0)!
-              .valuesArray()!
-              .map((num) => num)
-          ),
-          temperature_2m_min: Array.from(
-            daily
-              .variables(1)!
-              .valuesArray()!
-              .map((num) => num)
-          ),
-        },
-      };
-    },
+    queryFn: async () =>
+      fetchDailyWeather(WEATHER_API_URL, DAILY_WEATHER_PARAMS),
   });
 
   useEffect(() => {

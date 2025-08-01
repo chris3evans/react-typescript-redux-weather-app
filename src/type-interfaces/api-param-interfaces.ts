@@ -11,3 +11,9 @@ export interface IHourlyWeatherParams {
   models: string;
   hourly: string;
 }
+
+export interface IDailyWeatherParams {
+  latitude: number;
+  longitude: number;
+  daily: string[];
+}
