@@ -1,0 +1,29 @@
+@import "../../../scss/colours";
+
+.daily-section {
+}
+
+.daily-weather-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .daily-weather-item {
+    display: grid;
+    grid-template-columns: 25rem 10rem 10rem 65rem 10rem;
+    align-items: center;
+    justify-items: center;
+    border: 0.2rem solid $light-blue;
+    border-radius: 1rem;
+    padding: 1rem 0rem;
+    background-color: $dark-blue;
+
+    &:not(:last-of-type) {
+      margin-bottom: 3rem;
+    }
+
+    .daily-weather-date {
+      text-align: center;
+    }
+  }
+}
