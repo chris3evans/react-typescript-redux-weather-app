@@ -6,30 +6,6 @@
   align-items: center;
 }
 
-.hourly-section {
-  margin-bottom: 5rem;
-}
-
-.hourly-weather-list {
-  display: flex;
-  align-items: center;
-  border: 0.2rem solid $light-blue;
-  background-color: $dark-blue;
-  border-radius: 1rem;
-  padding: 2rem 3rem;
-
-  .hourly-weather-item {
-    display: grid;
-    grid-template-rows: repeat(3, min-content);
-    grid-row-gap: 1rem;
-    text-align: center;
-
-    &:not(:last-of-type) {
-      margin-right: 7.5rem;
-    }
-  }
-}
-
 .daily-section {
 }
 

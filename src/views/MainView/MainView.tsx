@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { setHours } from "../../state/slices/hourlyWeatherSlice";
 import { setDays } from "../../state/slices/dailyWeatherSlice";
 import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
+import { HourlyWeatherSection } from "../../components/Main View/HourlyWeatherSection/HourlyWeatherSection";
 
 export function MainView() {
   const currentWeatherParams = {
@@ -142,9 +143,6 @@ export function MainView() {
   }, [currentWeather, hourlyWeather, dailyWeather]);
 
   const dispatch = useAppDispatch();
-  const selectHourlyWeatherValues = useAppSelector(
-    (state) => state.hourlyWeather.hours
-  );
   const selectDailyWeatherValues = useAppSelector(
     (state) => state.dailyWeather.days
   );
@@ -152,24 +150,7 @@ export function MainView() {
   return (
     <div className={styles["main-view"]}>
       <OverViewSection></OverViewSection>
-
-      <div className={styles["hourly-section"]}>
-        <ul className={styles["hourly-weather-list"]}>
-          {selectHourlyWeatherValues.map((hourlyWeatherItem, i) => {
-            if (i <= 7) {
-              return (
-                <li key={i} className={styles["hourly-weather-item"]}>
-                  <h4>{hourlyWeatherItem.time}</h4>
-                  <div>{hourlyWeatherItem.icon}</div>
-                  <h4>{hourlyWeatherItem.temperature}°C</h4>
-                </li>
-              );
-            } else {
-              return;
-            }
-          })}
-        </ul>
-      </div>
+      <HourlyWeatherSection></HourlyWeatherSection>
 
       <div className={styles["daily-section"]}>
         <ul className={styles["daily-weather-list"]}>
