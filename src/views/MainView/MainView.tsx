@@ -151,79 +151,9 @@ export function MainView() {
   const selectHourlyWeatherValues = useAppSelector(
     (state) => state.hourlyWeather.hours
   );
-
-  const mockDailyWeatherItems: IDailyWeatherItem[] = [
-    {
-      date: "20/06/2025",
-      weekday: "monday",
-      icon: "*ICON*",
-      lowestTemperature: 20,
-      highestTemperature: 28,
-    },
-    {
-      date: "21/06/2025",
-      weekday: "tuesday",
-      icon: "*ICON*",
-      lowestTemperature: 19,
-      highestTemperature: 25,
-    },
-    {
-      date: "22/06/2025",
-      weekday: "wednesday",
-      icon: "*ICON*",
-      lowestTemperature: 22,
-      highestTemperature: 30,
-    },
-    {
-      date: "23/06/2025",
-      weekday: "thursday",
-      icon: "*ICON*",
-      lowestTemperature: 22,
-      highestTemperature: 27,
-    },
-    {
-      date: "24/06/2025",
-      weekday: "friday",
-      icon: "*ICON*",
-      lowestTemperature: 21,
-      highestTemperature: 25,
-    },
-    {
-      date: "25/06/2025",
-      weekday: "saturday",
-      icon: "*ICON*",
-      lowestTemperature: 20,
-      highestTemperature: 26,
-    },
-    {
-      date: "26/06/2025",
-      weekday: "sunday",
-      icon: "*ICON*",
-      lowestTemperature: 23,
-      highestTemperature: 28,
-    },
-    {
-      date: "27/06/2025",
-      weekday: "monday",
-      icon: "*ICON*",
-      lowestTemperature: 22,
-      highestTemperature: 33,
-    },
-    {
-      date: "28/06/2025",
-      weekday: "tuesday",
-      icon: "*ICON*",
-      lowestTemperature: 23,
-      highestTemperature: 31,
-    },
-    {
-      date: "29/06/2025",
-      weekday: "wednesday",
-      icon: "*ICON*",
-      lowestTemperature: 22,
-      highestTemperature: 34,
-    },
-  ];
+  const selectDailyWeatherValues = useAppSelector(
+    (state) => state.dailyWeather.days
+  );
 
   return (
     <div className={styles["main-view"]}>
@@ -256,7 +186,7 @@ export function MainView() {
 
       <div className={styles["daily-section"]}>
         <ul className={styles["daily-weather-list"]}>
-          {mockDailyWeatherItems.map((dailyWeatherItem, i) => {
+          {selectDailyWeatherValues.map((dailyWeatherItem, i) => {
             return (
               <li key={i} className={styles["daily-weather-item"]}>
                 <div className={styles["daily-weather-date"]}>

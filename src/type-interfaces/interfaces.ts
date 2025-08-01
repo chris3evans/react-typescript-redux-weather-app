@@ -6,14 +6,14 @@ export interface IHourlyWeatherItem {
 
 export interface IDailyWeatherItem {
   date: string;
-  weekday:
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday"
-    | "sunday";
+  weekday: string;
+  // | "monday"
+  // | "tuesday"
+  // | "wednesday"
+  // | "thursday"
+  // | "friday"
+  // | "saturday"
+  // | "sunday";
   icon: string;
   lowestTemperature: number;
   highestTemperature: number;
