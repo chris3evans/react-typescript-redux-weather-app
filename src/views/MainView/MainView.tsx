@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect } from "react";
 import { setHours } from "../../state/slices/hourlyWeatherSlice";
+import { setDays } from "../../state/slices/dailyWeatherSlice";
 
 export function MainView() {
   const currentWeatherParams = {
@@ -107,17 +108,24 @@ export function MainView() {
               (Number(daily.timeEnd()) - Number(daily.time())) /
                 daily.interval()
             ),
-          ].map(
-            (_, i) =>
-              new Date(
-                (Number(daily.time()) +
-                  i * daily.interval() +
-                  utcOffsetSeconds) *
-                  1000
-              )
+          ].map((_, i) =>
+            new Date(
+              (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
+                1000
+            ).toISOString()
           ),
-          temperature_2m_max: daily.variables(0)!.valuesArray(),
-          temperature_2m_min: daily.variables(1)!.valuesArray(),
+          temperature_2m_max: Array.from(
+            daily
+              .variables(0)!
+              .valuesArray()!
+              .map((num) => num)
+          ),
+          temperature_2m_min: Array.from(
+            daily
+              .variables(1)!
+              .valuesArray()!
+              .map((num) => num)
+          ),
         },
       };
     },
@@ -129,10 +137,10 @@ export function MainView() {
     }
 
     if (hourlyWeather?.hourly) {
-      dispatch(setHours(hourlyWeather));
+      dispatch(setHours(hourlyWeather.hourly));
     }
     if (dailyWeather?.daily) {
-      console.log(dailyWeather.daily);
+      dispatch(setDays(dailyWeather.daily));
     }
   }, [currentWeather, hourlyWeather, dailyWeather]);
 

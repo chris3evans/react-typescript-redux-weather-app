@@ -15,13 +15,11 @@ export const hourlyWeatherSlice = createSlice({
   reducers: {
     setHours: (
       state,
-      action: PayloadAction<{
-        hourly: { time: string[]; temperature2m: number[] };
-      }>
+      action: PayloadAction<{ time: string[]; temperature2m: number[] }>
     ) => {
       const hours: IHourlyWeatherItem[] = [];
 
-      action.payload.hourly.time.forEach((t) => {
+      action.payload.time.forEach((t) => {
         const dateObject = new Date(t);
         const timeString = dateObject.toLocaleTimeString([], {
           hour: "2-digit",
@@ -37,9 +35,7 @@ export const hourlyWeatherSlice = createSlice({
       });
 
       hours.forEach((h, i) => {
-        h.temperature = Number(
-          action.payload.hourly.temperature2m[i].toFixed(2)
-        );
+        h.temperature = Number(action.payload.temperature2m[i].toFixed(2));
       });
 
       state.hours = hours;
