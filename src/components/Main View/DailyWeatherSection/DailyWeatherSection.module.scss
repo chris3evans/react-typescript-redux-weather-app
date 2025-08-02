@@ -1,4 +1,10 @@
+@import "../../../scss/colours";
+
 .daily-section {
+  height: 45rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $dark-blue $blue;
 }
 
 .daily-weather-list {
