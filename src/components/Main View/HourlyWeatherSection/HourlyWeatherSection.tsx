@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../../state/hooks";
+import { HourlyWeatherItem } from "../HourlyWeatherItem/HourlyWeatherItem";
 import styles from "./HourlyWeatherSection.module.scss";
 
 export function HourlyWeatherSection() {
@@ -12,11 +13,10 @@ export function HourlyWeatherSection() {
         {selectHourlyWeatherValues.map((hourlyWeatherItem, i) => {
           if (i <= 7) {
             return (
-              <li key={i} className={styles["hourly-weather-item"]}>
-                <h4>{hourlyWeatherItem.time}</h4>
-                <div>{hourlyWeatherItem.icon}</div>
-                <h4>{hourlyWeatherItem.temperature}°C</h4>
-              </li>
+              <HourlyWeatherItem
+                itemData={hourlyWeatherItem}
+                itemKey={i}
+              ></HourlyWeatherItem>
             );
           } else {
             return;
