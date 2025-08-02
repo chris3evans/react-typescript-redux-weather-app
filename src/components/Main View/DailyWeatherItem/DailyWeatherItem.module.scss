@@ -2,16 +2,16 @@
 
 .daily-weather-item {
   display: grid;
-  grid-template-columns: 25rem 10rem 10rem 65rem 10rem;
+  grid-template-columns: 25rem 10rem 15rem 50rem 15rem;
   align-items: center;
   justify-items: center;
   border: 0.2rem solid $light-blue;
   border-radius: 1rem;
-  padding: 1rem 0rem;
+  padding: 0.5rem 0rem;
   background-color: $dark-blue;
 
   &:not(:last-of-type) {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .daily-weather-date {
