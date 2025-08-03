@@ -17,7 +17,10 @@ import {
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
 import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
-import { reverseGeoCode } from "../../state/slices/locationSlice";
+import {
+  locationUpdated,
+  reverseGeoCode,
+} from "../../state/slices/locationSlice";
 
 export function MainView() {
   const [coords, setCoords] = useState<{
@@ -83,6 +86,7 @@ export function MainView() {
   useEffect(() => {
     if (location) {
       dispatch(reverseGeoCode(location));
+      formatLocationUpdatedTime();
     }
   }, [location]);
 
@@ -96,6 +100,21 @@ export function MainView() {
   }, [currentWeather, dailyWeather]);
 
   const dispatch = useAppDispatch();
+
+  const formatLocationUpdatedTime = function (): void {
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+    const formatter = new Intl.DateTimeFormat("en-GB", options);
+    const formattedDate = formatter.format(now);
+    dispatch(locationUpdated(formattedDate));
+  };
 
   return (
     <div className={styles["main-view"]}>

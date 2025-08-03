@@ -16,6 +16,7 @@ export interface ILocationState {
     suburb: string;
     town: string;
   };
+  lastUpdateTime: string;
 }
 
 const initialState: ILocationState = {
@@ -33,6 +34,7 @@ const initialState: ILocationState = {
     suburb: "",
     town: "",
   },
+  lastUpdateTime: "",
 };
 
 export const locationSlice = createSlice({
@@ -56,9 +58,12 @@ export const locationSlice = createSlice({
       state.coordinates.latitude = action.payload.results[0].geometry.lat;
       state.coordinates.longitude = action.payload.results[0].geometry.lng;
     },
+    locationUpdated: (state, action: PayloadAction<string>) => {
+      state.lastUpdateTime = action.payload;
+    },
   },
 });
 
-export const { reverseGeoCode } = locationSlice.actions;
+export const { reverseGeoCode, locationUpdated } = locationSlice.actions;
 
 export default locationSlice.reducer;
