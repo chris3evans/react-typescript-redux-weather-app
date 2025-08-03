@@ -3,13 +3,12 @@ import styles from "./DailyWeatherItem.module.scss";
 
 export function DailyWeatherItem({
   itemData,
-  itemKey,
 }: {
   itemData: IDailyWeatherItem;
-  itemKey: number;
+  key: number;
 }) {
   return (
-    <li key={itemKey} className={styles["daily-weather-item"]}>
+    <li className={styles["daily-weather-item"]}>
       <div className={styles["daily-weather-top"]}>
         <div className={styles["daily-weather-icon"]}>*ICON*</div>
         <h4>

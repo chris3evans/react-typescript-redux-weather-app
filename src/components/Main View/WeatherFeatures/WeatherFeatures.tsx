@@ -33,8 +33,8 @@ export function WeatherFeatures() {
 
   return (
     <ul className={styles["weather-features-list"]}>
-      {mockWeatherFeatures.map((feature) => (
-        <WeatherFeatureItem featureData={feature}></WeatherFeatureItem>
+      {mockWeatherFeatures.map((feature, i) => (
+        <WeatherFeatureItem featureData={feature} key={i}></WeatherFeatureItem>
       ))}
     </ul>
   );

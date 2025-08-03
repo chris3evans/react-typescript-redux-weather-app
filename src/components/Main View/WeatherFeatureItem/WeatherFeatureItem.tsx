@@ -5,6 +5,7 @@ export function WeatherFeatureItem({
   featureData,
 }: {
   featureData: IWeatherFeature;
+  key: number;
 }) {
   return (
     <div className={styles["weather-feature-item"]}>

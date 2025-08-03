@@ -16,7 +16,7 @@ export function DailyWeatherSection() {
           return (
             <DailyWeatherItem
               itemData={dailyWeatherItem}
-              itemKey={i}
+              key={i}
             ></DailyWeatherItem>
           );
         })}

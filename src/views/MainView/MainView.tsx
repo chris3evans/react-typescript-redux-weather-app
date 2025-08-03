@@ -2,13 +2,14 @@ import styles from "./MainView.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch } from "../../state/hooks";
 import { setValues } from "../../state/slices/currentWeatherSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setDays } from "../../state/slices/dailyWeatherSlice";
 import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
 import { DailyWeatherSection } from "../../components/Main View/DailyWeatherSection/DailyWeatherSection";
 import {
   fetchCurrentWeather,
   fetchDailyWeather,
+  fetchReverseGeoLocation,
 } from "../../api/weather-api-service";
 import {
   CURRENT_WEATHER_PARAMS,
@@ -16,8 +17,14 @@ import {
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
 import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
+import { reverseGeoCode } from "../../state/slices/locationSlice";
 
 export function MainView() {
+  const [coords, setCoords] = useState<{
+    latitude: number;
+    longitude: number;
+  }>({ latitude: 0, longitude: 0 });
+
   const {
     data: currentWeather,
     // isPending,
@@ -37,6 +44,47 @@ export function MainView() {
     queryFn: async () =>
       fetchDailyWeather(WEATHER_API_URL, DAILY_WEATHER_PARAMS),
   });
+
+  const { data: location } = useQuery({
+    queryKey: ["location", coords.latitude, coords.longitude],
+    queryFn: async () => {
+      return await fetchReverseGeoLocation({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      const geoOptions = {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCoords({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Geolocation Error:", error.message);
+        },
+        geoOptions
+      );
+    } else {
+      console.error("Location sharing is not enabled");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (location) {
+      dispatch(reverseGeoCode(location));
+    }
+  }, [location]);
 
   useEffect(() => {
     if (currentWeather?.current) {

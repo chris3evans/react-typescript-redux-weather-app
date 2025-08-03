@@ -9,6 +9,9 @@ import {
   IDailyWeatherResponse,
   IHourlyWeatherResponse,
 } from "../type-interfaces/api-return-interfaces";
+import { IReverseGeolocationResponse } from "../type-interfaces/server-interfaces";
+
+const REVERSE_GEOLOCATION_KEY: string = "580e65814a20479180aeff885e10da41";
 
 export async function fetchCurrentWeather(
   url: string,
@@ -90,4 +93,14 @@ export async function fetchDailyWeather(
       ),
     },
   };
+}
+
+export async function fetchReverseGeoLocation(coords: {
+  latitude: number;
+  longitude: number;
+}): Promise<IReverseGeolocationResponse> {
+  const response = await fetch(
+    `https://api.opencagedata.com/geocode/v1/json?q=${coords.latitude}%2C+${coords.longitude}&key=${REVERSE_GEOLOCATION_KEY}`
+  );
+  return await response.json();
 }
