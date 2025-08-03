@@ -28,6 +28,8 @@ export function MainView() {
     longitude: number;
   }>({ latitude: 0, longitude: 0 });
 
+  const dispatch = useAppDispatch();
+
   const {
     data: currentWeather,
     // isPending,
@@ -88,7 +90,7 @@ export function MainView() {
       dispatch(reverseGeoCode(location));
       formatLocationUpdatedTime();
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   useEffect(() => {
     if (currentWeather?.current) {
@@ -97,9 +99,7 @@ export function MainView() {
     if (dailyWeather?.daily) {
       dispatch(setDays(dailyWeather.daily));
     }
-  }, [currentWeather, dailyWeather]);
-
-  const dispatch = useAppDispatch();
+  }, [currentWeather, dailyWeather, dispatch]);
 
   const formatLocationUpdatedTime = function (): void {
     const now = new Date();

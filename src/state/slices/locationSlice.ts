@@ -32,7 +32,7 @@ const initialState: ILocationState = {
     postcode: "",
     road: "",
     suburb: "",
-    town: "",
+    town: "Town Unknown",
   },
   lastUpdateTime: "",
 };
@@ -45,6 +45,7 @@ export const locationSlice = createSlice({
       state,
       action: PayloadAction<IReverseGeolocationResponse>
     ) => {
+      console.log(action.payload);
       const streetData = action.payload.results[0].components;
       state.streetAddress.continent = streetData.continent;
       state.streetAddress.country = streetData.country;

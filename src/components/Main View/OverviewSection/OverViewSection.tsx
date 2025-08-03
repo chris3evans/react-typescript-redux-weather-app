@@ -6,11 +6,11 @@ export function OverViewSection() {
     (state) => state.currentWeather
   );
 
-  const selectCurrentTown: string = useAppSelector(
-    (state) => state.location.streetAddress.town
+  const selectCurrentSuburb: string = useAppSelector(
+    (state) => state.location.streetAddress.suburb
   );
-  const selectCurrentCountry: string = useAppSelector(
-    (state) => state.location.streetAddress.country
+  const selectCurrentRoad: string = useAppSelector(
+    (state) => state.location.streetAddress.road
   );
   const selectLastLocationUpdateTime: string = useAppSelector(
     (state) => state.location.lastUpdateTime
@@ -23,7 +23,7 @@ export function OverViewSection() {
           <div className={styles["location-icon"]}>*ICON*</div>
           <div className={styles["location-details"]}>
             <h3>
-              {selectCurrentTown}, {selectCurrentCountry}
+              {selectCurrentRoad}, {selectCurrentSuburb}
             </h3>
             <h4>Last updated on {selectLastLocationUpdateTime}</h4>
           </div>
