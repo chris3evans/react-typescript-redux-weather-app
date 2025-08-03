@@ -1,14 +1,22 @@
 @import "../../../scss/colours";
 
 .daily-section {
-  height: 45rem;
-  overflow-y: scroll;
+  width: 125rem;
+  overflow-x: scroll;
   scrollbar-width: thin;
   scrollbar-color: $dark-blue $blue;
-}
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  grid-row-gap: 5rem;
+  padding-bottom: 2rem;
 
-.daily-weather-list {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  h3 {
+    margin-left: 2.5rem;
+  }
+
+  .daily-weather-list {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-column-gap: 2rem;
+  }
 }

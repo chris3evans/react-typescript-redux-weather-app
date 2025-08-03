@@ -10,16 +10,20 @@ export function DailyWeatherItem({
 }) {
   return (
     <li key={itemKey} className={styles["daily-weather-item"]}>
-      <div className={styles["daily-weather-date"]}>
-        <h3>
+      <div className={styles["daily-weather-top"]}>
+        <div className={styles["daily-weather-icon"]}>*ICON*</div>
+        <h4>
           {itemData.weekday[0].toLocaleUpperCase() + itemData.weekday.slice(1)}
-        </h3>
-        <p>{itemData.date}</p>
+        </h4>
       </div>
-      <div>{itemData.icon}</div>
-      <h3>{itemData.lowestTemperature}°C</h3>
-      <div>*Temperature Range*</div>
-      <h3>{itemData.highestTemperature}°C</h3>
+      <div className={styles["daily-weather-bottom"]}>
+        <div className={styles["daily-weather-temperatures"]}>
+          <p>{itemData.lowestTemperature} °C&nbsp;</p>
+          <p>/</p>
+          <p>&nbsp;{itemData.highestTemperature} °C</p>
+        </div>
+        <div className={styles["rain-icon"]}>*ICON*</div>
+      </div>
     </li>
   );
 }

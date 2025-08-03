@@ -1,23 +1,18 @@
 import styles from "./MainView.module.scss";
-import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch } from "../../state/hooks";
 import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect } from "react";
-import { setHours } from "../../state/slices/hourlyWeatherSlice";
 import { setDays } from "../../state/slices/dailyWeatherSlice";
 import { OverViewSection } from "../../components/Main View/OverviewSection/OverViewSection";
-import { HourlyWeatherSection } from "../../components/Main View/HourlyWeatherSection/HourlyWeatherSection";
 import { DailyWeatherSection } from "../../components/Main View/DailyWeatherSection/DailyWeatherSection";
 import {
   fetchCurrentWeather,
   fetchDailyWeather,
-  fetchHourlyWeather,
 } from "../../api/weather-api-service";
 import {
   CURRENT_WEATHER_PARAMS,
   DAILY_WEATHER_PARAMS,
-  HOURLY_WEATHER_PARAMS,
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
 import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
@@ -34,16 +29,6 @@ export function MainView() {
   });
 
   const {
-    data: hourlyWeather,
-    // isPending,
-    // isError
-  } = useQuery({
-    queryKey: ["hourly-weather"],
-    queryFn: async () =>
-      fetchHourlyWeather(WEATHER_API_URL, HOURLY_WEATHER_PARAMS),
-  });
-
-  const {
     data: dailyWeather,
     // isPending
     // isError
@@ -57,13 +42,10 @@ export function MainView() {
     if (currentWeather?.current) {
       dispatch(setValues(currentWeather.current));
     }
-    if (hourlyWeather?.hourly) {
-      dispatch(setHours(hourlyWeather.hourly));
-    }
     if (dailyWeather?.daily) {
       dispatch(setDays(dailyWeather.daily));
     }
-  }, [currentWeather, hourlyWeather, dailyWeather]);
+  }, [currentWeather, dailyWeather]);
 
   const dispatch = useAppDispatch();
 
@@ -71,7 +53,6 @@ export function MainView() {
     <div className={styles["main-view"]}>
       <OverViewSection></OverViewSection>
       <WeatherFeatures></WeatherFeatures>
-      <HourlyWeatherSection></HourlyWeatherSection>
       <DailyWeatherSection></DailyWeatherSection>
     </div>
   );

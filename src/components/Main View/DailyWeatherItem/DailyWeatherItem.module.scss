@@ -2,19 +2,28 @@
 
 .daily-weather-item {
   display: grid;
-  grid-template-columns: 25rem 10rem 15rem 50rem 15rem;
-  align-items: center;
-  justify-items: center;
-  border: 0.2rem solid $light-blue;
-  border-radius: 1rem;
-  padding: 0.5rem 0rem;
-  background-color: $dark-blue;
+  grid-template-rows: repeat(2, min-content);
+  grid-row-gap: 1rem;
+  background-color: rgba($dark-blue, 0.2);
+  padding: 1rem;
+  justify-content: center;
+  width: 20rem;
 
-  &:not(:last-of-type) {
-    margin-bottom: 2rem;
+  .daily-weather-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .daily-weather-date {
-    text-align: center;
+  .daily-weather-bottom {
+    display: flex;
+    align-items: center;
+
+    .daily-weather-temperatures {
+      display: flex;
+      align-items: center;
+      margin-right: 2rem;
+      font-weight: 100;
+    }
   }
 }

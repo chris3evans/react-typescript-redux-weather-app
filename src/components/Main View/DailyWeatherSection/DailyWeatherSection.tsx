@@ -9,6 +9,8 @@ export function DailyWeatherSection() {
 
   return (
     <div className={styles["daily-section"]}>
+      <h3>Daily Forecast</h3>
+
       <ul className={styles["daily-weather-list"]}>
         {selectDailyWeatherValues.map((dailyWeatherItem, i) => {
           return (
