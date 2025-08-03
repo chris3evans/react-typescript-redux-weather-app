@@ -68,10 +68,8 @@ export function MainView() {
 
   return (
     <div className={styles["main-view"]}>
-      <div className={styles["top"]}>
-        <OverViewSection></OverViewSection>
-        <HourlyWeatherSection></HourlyWeatherSection>
-      </div>
+      <OverViewSection></OverViewSection>
+      <HourlyWeatherSection></HourlyWeatherSection>
       <DailyWeatherSection></DailyWeatherSection>
     </div>
   );
