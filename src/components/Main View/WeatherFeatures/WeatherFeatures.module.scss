@@ -1,6 +1,6 @@
 .weather-features-list {
   display: grid;
-  grid-template-columns: repeat(5, 15rem);
+  grid-template-columns: repeat(5, auto);
   grid-column-gap: 5rem;
-  justify-content: center;
+  justify-content: left;
 }

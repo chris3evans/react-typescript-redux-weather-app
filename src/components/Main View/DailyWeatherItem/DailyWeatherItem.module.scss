@@ -8,6 +8,13 @@
   padding: 1rem;
   justify-content: center;
   width: 20rem;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: rgba($dark-blue, 0.4);
+  }
 
   .daily-weather-top {
     display: flex;
