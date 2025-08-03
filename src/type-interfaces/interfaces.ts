@@ -7,15 +7,14 @@ export interface IHourlyWeatherItem {
 export interface IDailyWeatherItem {
   date: string;
   weekday: string;
-  // | "monday"
-  // | "tuesday"
-  // | "wednesday"
-  // | "thursday"
-  // | "friday"
-  // | "saturday"
-  // | "sunday";
   icon: string;
   lowestTemperature: number;
   highestTemperature: number;
   // temperatureRange: ??
+}
+
+export interface IWeatherFeature {
+  feature: string;
+  value: number;
+  unit: string;
 }

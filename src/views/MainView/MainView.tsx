@@ -20,6 +20,7 @@ import {
   HOURLY_WEATHER_PARAMS,
   WEATHER_API_URL,
 } from "../../api/weather-api-parameters";
+import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
 
 export function MainView() {
   const {
@@ -69,6 +70,7 @@ export function MainView() {
   return (
     <div className={styles["main-view"]}>
       <OverViewSection></OverViewSection>
+      <WeatherFeatures></WeatherFeatures>
       <HourlyWeatherSection></HourlyWeatherSection>
       <DailyWeatherSection></DailyWeatherSection>
     </div>

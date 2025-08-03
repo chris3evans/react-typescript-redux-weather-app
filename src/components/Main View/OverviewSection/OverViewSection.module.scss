@@ -1,9 +1,7 @@
 .overview-section {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  width: 100%;
-  margin-bottom: 5rem;
 
   .overview-location {
     display: flex;
@@ -26,9 +24,6 @@
     align-items: center;
     text-align: center;
     grid-column-gap: 4rem;
-
-    .weather-icon {
-    }
 
     .weather-details {
       display: grid;
