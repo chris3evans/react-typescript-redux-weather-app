@@ -10,7 +10,16 @@ export const CURRENT_WEATHER_PARAMS: ICurrentWeatherParams = {
   latitude: 51.5085,
   longitude: -0.1257,
   models: "ukmo_seamless",
-  current: ["temperature_2m"],
+  current: [
+    "temperature_2m",
+    "is_day",
+    "rain",
+    "precipitation",
+    "relative_humidity_2m",
+    "temperature_2m",
+    "showers",
+    "snowfall",
+  ],
 };
 
 export const HOURLY_WEATHER_PARAMS: IHourlyWeatherParams = {

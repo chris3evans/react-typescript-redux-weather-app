@@ -1,7 +1,14 @@
 export interface ICurrentWeatherResponse {
   current: {
     time: string;
-    temperature2m: number;
+    apparent_temperature: number;
+    is_day: number;
+    rain: number;
+    precipitation: number;
+    relative_humidity_2m: number;
+    showers: number;
+    snowfall: number;
+    temperature_2m: number;
   };
 }
 

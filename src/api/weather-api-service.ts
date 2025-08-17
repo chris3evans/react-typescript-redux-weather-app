@@ -27,7 +27,14 @@ export async function fetchCurrentWeather(
       time: new Date(
         (Number(current.time()) + utcOffsetSeconds) * 1000
       ).toISOString(),
-      temperature2m: current.variables(0)!.value(),
+      apparent_temperature: current.variables(0)!.value(),
+      is_day: current.variables(1)!.value(),
+      rain: current.variables(2)!.value(),
+      precipitation: current.variables(3)!.value(),
+      relative_humidity_2m: current.variables(4)!.value(),
+      temperature_2m: current.variables(5)!.value(),
+      showers: current.variables(6)!.value(),
+      snowfall: current.variables(7)!.value(),
     },
   };
 }

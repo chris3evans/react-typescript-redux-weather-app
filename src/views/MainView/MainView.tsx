@@ -94,7 +94,7 @@ export function MainView() {
 
   useEffect(() => {
     if (currentWeather?.current) {
-      dispatch(setValues(currentWeather.current));
+      dispatch(setValues(currentWeather));
     }
     if (dailyWeather?.daily) {
       dispatch(setDays(dailyWeather.daily));
