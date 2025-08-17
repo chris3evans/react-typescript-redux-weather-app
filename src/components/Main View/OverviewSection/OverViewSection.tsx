@@ -28,7 +28,9 @@ export function OverViewSection() {
         </div>
 
         <div className={styles["overview-weather"]}>
-          <div className={styles["weather-icon"]}>*ICON*</div>
+          <div className={styles["weather-icon"]}>
+            <Svg svgFill="#000000" svgName="sun"></Svg>
+          </div>
           <h1>
             {Number(selectCurrentWeatherValues.temperature2m.toFixed(2))}°C
           </h1>

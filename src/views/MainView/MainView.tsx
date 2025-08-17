@@ -15,7 +15,7 @@ import {
   CURRENT_WEATHER_PARAMS,
   DAILY_WEATHER_PARAMS,
   WEATHER_API_URL,
-} from "../../api/weather-api-parameters";
+} from "../../constants/weather-api-parameters";
 import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
 import {
   locationUpdated,
