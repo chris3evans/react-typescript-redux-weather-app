@@ -35,6 +35,7 @@ export async function fetchCurrentWeather(
       temperature_2m: current.variables(5)!.value(),
       showers: current.variables(6)!.value(),
       snowfall: current.variables(7)!.value(),
+      cloud_cover: current.variables(8)!.value(),
     },
   };
 }

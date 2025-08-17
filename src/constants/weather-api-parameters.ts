@@ -19,6 +19,7 @@ export const CURRENT_WEATHER_PARAMS: ICurrentWeatherParams = {
     "temperature_2m",
     "showers",
     "snowfall",
+    "cloud_cover",
   ],
 };
 

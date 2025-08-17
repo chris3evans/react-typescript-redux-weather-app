@@ -1,3 +1,4 @@
+import { formatWeatherIcon } from "../../../services/utility";
 import { useAppSelector } from "../../../state/hooks";
 import { Svg } from "../../Svg/Svg";
 import styles from "./OverViewSection.module.scss";
@@ -29,7 +30,10 @@ export function OverViewSection() {
 
         <div className={styles["overview-weather"]}>
           <div className={styles["weather-icon"]}>
-            <Svg svgFill="#000000" svgName="sunny"></Svg>
+            <Svg
+              svgFill="#000000"
+              svgName={formatWeatherIcon(selectCurrentWeatherValues)}
+            ></Svg>
           </div>
           <h1>
             {Number(selectCurrentWeatherValues.temperature2m.toFixed(2))}°C

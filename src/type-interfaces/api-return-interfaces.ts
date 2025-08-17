@@ -9,6 +9,7 @@ export interface ICurrentWeatherResponse {
     showers: number;
     snowfall: number;
     temperature_2m: number;
+    cloud_cover: number;
   };
 }
 
