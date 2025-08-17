@@ -34,7 +34,13 @@ export function OverViewSection() {
           </h1>
           <div className={styles["weather-details"]}>
             <h3>Sunny with clouds</h3>
-            <h4>Feels like 20 °C</h4>
+            <h4>
+              Feels like{" "}
+              {Number(
+                selectCurrentWeatherValues.apparentTemperature.toFixed(2)
+              )}
+              °C
+            </h4>
           </div>
         </div>
       </div>
