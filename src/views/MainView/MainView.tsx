@@ -1,6 +1,6 @@
 import styles from "./MainView.module.scss";
 import { useQuery } from "@tanstack/react-query";
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import { useAppDispatch } from "../../state/hooks";
 import { setValues } from "../../state/slices/currentWeatherSlice";
 import { useEffect, useState } from "react";
 import { setDays } from "../../state/slices/dailyWeatherSlice";
