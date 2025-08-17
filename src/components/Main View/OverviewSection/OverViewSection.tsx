@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../../state/hooks";
+import { Svg } from "../../Svg/Svg";
 import styles from "./OverViewSection.module.scss";
 
 export function OverViewSection() {
@@ -6,11 +7,8 @@ export function OverViewSection() {
     (state) => state.currentWeather
   );
 
-  const selectCurrentSuburb: string = useAppSelector(
-    (state) => state.location.streetAddress.suburb
-  );
-  const selectCurrentRoad: string = useAppSelector(
-    (state) => state.location.streetAddress.road
+  const selectFormattedAddress: string = useAppSelector(
+    (state) => state.location.streetAddress.formatted
   );
   const selectLastLocationUpdateTime: string = useAppSelector(
     (state) => state.location.lastUpdateTime
@@ -20,11 +18,11 @@ export function OverViewSection() {
     <>
       <div className={styles["overview-section"]}>
         <div className={styles["overview-location"]}>
-          <div className={styles["location-icon"]}>*ICON*</div>
+          <div className={styles["location-icon"]}>
+            <Svg svgFill="#ffffff" svgName="mapPin"></Svg>
+          </div>
           <div className={styles["location-details"]}>
-            <h3>
-              {selectCurrentRoad}, {selectCurrentSuburb}
-            </h3>
+            <h3>{selectFormattedAddress}</h3>
             <h4>Last updated on {selectLastLocationUpdateTime}</h4>
           </div>
         </div>

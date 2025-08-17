@@ -15,6 +15,7 @@ export interface ILocationState {
     road: string;
     suburb: string;
     town: string;
+    formatted: string;
   };
   lastUpdateTime: string;
 }
@@ -33,6 +34,7 @@ const initialState: ILocationState = {
     road: "",
     suburb: "",
     town: "Town Unknown",
+    formatted: "",
   },
   lastUpdateTime: "",
 };
@@ -45,7 +47,6 @@ export const locationSlice = createSlice({
       state,
       action: PayloadAction<IReverseGeolocationResponse>
     ) => {
-      console.log(action.payload);
       const streetData = action.payload.results[0].components;
       state.streetAddress.continent = streetData.continent;
       state.streetAddress.country = streetData.country;
@@ -55,6 +56,7 @@ export const locationSlice = createSlice({
       state.streetAddress.road = streetData.road;
       state.streetAddress.suburb = streetData.suburb;
       state.streetAddress.town = streetData.town;
+      state.streetAddress.formatted = action.payload.results[0].formatted;
 
       state.coordinates.latitude = action.payload.results[0].geometry.lat;
       state.coordinates.longitude = action.payload.results[0].geometry.lng;
