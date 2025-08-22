@@ -12,6 +12,8 @@ export interface ICurrentWeatherState {
   snowfall: number;
   temperature2m: number;
   cloudCover: number;
+  windSpeed: number;
+  surfacePressure: number;
 }
 
 const initialState: ICurrentWeatherState = {
@@ -25,6 +27,8 @@ const initialState: ICurrentWeatherState = {
   snowfall: 0,
   temperature2m: 0,
   cloudCover: 0,
+  windSpeed: 0,
+  surfacePressure: 0,
 };
 
 export const currentWeatherSlice = createSlice({
@@ -42,6 +46,8 @@ export const currentWeatherSlice = createSlice({
       state.snowfall = action.payload.current.snowfall;
       state.temperature2m = action.payload.current.temperature_2m;
       state.cloudCover = action.payload.current.cloud_cover;
+      state.windSpeed = action.payload.current.wind_speed_10m;
+      state.surfacePressure = action.payload.current.surface_pressure;
     },
   },
 });

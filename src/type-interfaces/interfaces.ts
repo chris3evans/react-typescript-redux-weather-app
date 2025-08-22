@@ -17,4 +17,10 @@ export interface IWeatherFeature {
   feature: string;
   value: number;
   unit: string;
+  api_name:
+    | "wind_speed_10m"
+    | "surface_pressure"
+    | "cloud_cover"
+    | "relative_humidity_2m"
+    | "showers";
 }
