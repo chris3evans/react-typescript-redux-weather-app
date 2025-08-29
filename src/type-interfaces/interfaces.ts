@@ -12,6 +12,7 @@ export interface IDailyWeatherItem {
   icon: string;
   lowestTemperature: number;
   highestTemperature: number;
+  rainChance: number;
   // temperatureRange: ??
 }
 

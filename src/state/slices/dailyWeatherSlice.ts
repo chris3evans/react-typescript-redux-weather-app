@@ -33,6 +33,7 @@ export const dailyWeatherSlice = createSlice({
           icon: "",
           lowestTemperature: 0,
           highestTemperature: 0,
+          rainChance: 0,
         });
       });
 
@@ -44,9 +45,10 @@ export const dailyWeatherSlice = createSlice({
           action.payload.daily.temperature_2m_min[i].toFixed(2)
         );
         d.icon = formatWeatherIcon(action.payload.daily.weather_code[i]);
+        d.rainChance = Number(action.payload.daily.rain_sum[i].toFixed(2));
       });
 
-      // console.log(days, "days");
+      console.log(days, "days");
 
       state.days = days;
     },

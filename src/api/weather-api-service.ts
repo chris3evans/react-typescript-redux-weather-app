@@ -107,6 +107,12 @@ export async function fetchDailyWeather(
           .valuesArray()!
           .map((num) => num)
       ),
+      rain_sum: Array.from(
+        daily
+          .variables(3)!
+          .valuesArray()!
+          .map((num) => num)
+      ),
     },
   };
 }

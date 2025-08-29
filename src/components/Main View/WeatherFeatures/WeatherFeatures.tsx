@@ -27,7 +27,7 @@ export function WeatherFeatures() {
   const [cloudCoverFeature, setCloudCoverFeature] = useState<IWeatherFeature>({
     feature: "Cloud Cover",
     value: 0,
-    unit: "m",
+    unit: "%",
     api_name: "cloud_cover",
   });
   const [showersFeature, setShowersFeature] = useState<IWeatherFeature>({

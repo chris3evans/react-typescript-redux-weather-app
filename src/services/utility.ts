@@ -10,7 +10,6 @@ export const formatCurrentWeatherIcon = function (
   let isVeryCloud: boolean = false;
   let isCloudy: boolean = false;
   let isDay: boolean = true;
-  console.log(currentWeatherData);
   // if raining
   if (currentWeatherData.rain > 0 && currentWeatherData.rain < 25) {
     isDrizzle = true;
