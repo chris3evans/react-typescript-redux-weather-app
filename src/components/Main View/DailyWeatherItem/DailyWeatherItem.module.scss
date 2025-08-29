@@ -1,5 +1,10 @@
 @import "../../../scss/colours";
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .daily-weather-item {
   display: grid;
   grid-template-rows: repeat(2, min-content);
