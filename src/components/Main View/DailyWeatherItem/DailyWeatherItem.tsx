@@ -24,6 +24,7 @@ export function DailyWeatherItem({
           <p>/</p>
           <p>&nbsp;{itemData.highestTemperature} °C</p>
         </div>
+        <div className={styles["rain-icon"]}>*ICON*</div>
       </div>
     </li>
   );

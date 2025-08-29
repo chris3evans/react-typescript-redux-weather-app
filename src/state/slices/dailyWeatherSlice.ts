@@ -33,7 +33,6 @@ export const dailyWeatherSlice = createSlice({
           icon: "",
           lowestTemperature: 0,
           highestTemperature: 0,
-          weatherCode: 0,
         });
       });
 
@@ -44,9 +43,7 @@ export const dailyWeatherSlice = createSlice({
         d.lowestTemperature = Number(
           action.payload.daily.temperature_2m_min[i].toFixed(2)
         );
-        d.weatherCode = Number(action.payload.daily.weather_code[i].toFixed(2));
-        d.icon = formatWeatherIcon(d.weatherCode);
-        console.log(formatWeatherIcon(d.weatherCode));
+        d.icon = formatWeatherIcon(action.payload.daily.weather_code[i]);
       });
 
       // console.log(days, "days");
