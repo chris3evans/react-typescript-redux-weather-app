@@ -101,6 +101,12 @@ export async function fetchDailyWeather(
           .valuesArray()!
           .map((num) => num)
       ),
+      weather_code: Array.from(
+        daily
+          .variables(2)!
+          .valuesArray()!
+          .map((num) => num)
+      ),
     },
   };
 }

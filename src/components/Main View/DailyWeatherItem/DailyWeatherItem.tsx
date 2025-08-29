@@ -1,4 +1,5 @@
 import { IDailyWeatherItem } from "../../../type-interfaces/interfaces";
+import { Svg } from "../../Svg/Svg";
 import styles from "./DailyWeatherItem.module.scss";
 
 export function DailyWeatherItem({
@@ -10,7 +11,9 @@ export function DailyWeatherItem({
   return (
     <li className={styles["daily-weather-item"]}>
       <div className={styles["daily-weather-top"]}>
-        <div className={styles["daily-weather-icon"]}>*ICON*</div>
+        <div className={styles["daily-weather-icon"]}>
+          <Svg svgFill="#ffffff" svgName={itemData.icon}></Svg>
+        </div>
         <h4>
           {itemData.weekday[0].toLocaleUpperCase() + itemData.weekday.slice(1)}
         </h4>
@@ -21,7 +24,6 @@ export function DailyWeatherItem({
           <p>/</p>
           <p>&nbsp;{itemData.highestTemperature} °C</p>
         </div>
-        <div className={styles["rain-icon"]}>*ICON*</div>
       </div>
     </li>
   );

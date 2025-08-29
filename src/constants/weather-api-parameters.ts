@@ -35,5 +35,5 @@ export const HOURLY_WEATHER_PARAMS: IHourlyWeatherParams = {
 export const DAILY_WEATHER_PARAMS: IDailyWeatherParams = {
   latitude: 52.52,
   longitude: 13.41,
-  daily: ["temperature_2m_max", "temperature_2m_min"],
+  daily: ["temperature_2m_max", "temperature_2m_min", "weather_code"],
 };

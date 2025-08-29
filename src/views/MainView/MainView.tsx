@@ -97,7 +97,7 @@ export function MainView() {
       dispatch(setValues(currentWeather));
     }
     if (dailyWeather?.daily) {
-      dispatch(setDays(dailyWeather.daily));
+      dispatch(setDays(dailyWeather));
     }
   }, [currentWeather, dailyWeather, dispatch]);
 

@@ -1,3 +1,5 @@
+import { SvgIcon } from "../constants/svg-constants";
+
 export interface IHourlyWeatherItem {
   time: string;
   icon: string;
@@ -10,6 +12,7 @@ export interface IDailyWeatherItem {
   icon: string;
   lowestTemperature: number;
   highestTemperature: number;
+  weatherCode: number;
   // temperatureRange: ??
 }
 
