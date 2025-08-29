@@ -1,3 +1,4 @@
+import { SVG_ICONS } from "../../../constants/svg-constants";
 import { formatCurrentWeatherIcon } from "../../../services/utility";
 import { useAppSelector } from "../../../state/hooks";
 import { Svg } from "../../Svg/Svg";
@@ -14,6 +15,9 @@ export function OverViewSection() {
   const selectLastLocationUpdateTime: string = useAppSelector(
     (state) => state.location.lastUpdateTime
   );
+
+  const currentWeatherDescription: string =
+    SVG_ICONS[formatCurrentWeatherIcon(selectCurrentWeatherValues)].description;
 
   return (
     <>
@@ -39,7 +43,7 @@ export function OverViewSection() {
             {Number(selectCurrentWeatherValues.temperature2m.toFixed(2))}°C
           </h1>
           <div className={styles["weather-details"]}>
-            <h3>Sunny with clouds</h3>
+            <h3>{currentWeatherDescription}</h3>
             <h4>
               Feels like{" "}
               {Number(

@@ -20,6 +20,7 @@ export interface SvgIcon {
   Component: FunctionComponent<SVGProps<SVGSVGElement>>;
   width: string;
   height: string;
+  description: string;
 }
 
 export const SVG_ICONS: { [id: string]: SvgIcon } = {
@@ -27,80 +28,96 @@ export const SVG_ICONS: { [id: string]: SvgIcon } = {
     Component: MapPinIcon,
     width: "10px",
     height: "10px",
+    description: "",
   },
   sunny: {
     Component: SunIcon,
     width: "10px",
     height: "10px",
+    description: "Sunny",
   },
   cloudy: {
     Component: CloudyIcon,
     width: "10px",
     height: "10px",
+    description: "Cloudy",
   },
   sunnyLittleCloud: {
     Component: SunnyLittleCloudIcon,
     width: "10px",
     height: "10px",
+    description: "Sunny with a little cloud",
   },
   cloudyLittleSun: {
     Component: CloudyLittleSunIcon,
     width: "10px",
     height: "10px",
+    description: "Cloudy with a little sun",
   },
   clearNight: {
     Component: ClearNightIcon,
     width: "10px",
     height: "10px",
+    description: "Clear night",
   },
   nightLittleCloud: {
     Component: NightLittleCloudIcon,
     width: "10px",
     height: "10px",
+    description: "Night with a little cloud",
   },
   nightLotsCloud: {
     Component: NightLotsCloudIcon,
     width: "10px",
     height: "10px",
+    description: "Cloudy night",
   },
   fog: {
     Component: FogIcon,
     width: "10px",
     height: "10px",
+    description: "Foggy",
   },
   drizzle: {
     Component: DrizzleIcon,
     width: "10px",
     height: "10px",
+    description: "Drizzle",
   },
   rain: {
     Component: RainIcon,
     width: "10px",
     height: "10px",
+    description: "Raining",
   },
   heavyRain: {
     Component: HeavyRainIcon,
     width: "10px",
     height: "10px",
+    description: "Heavy Rain",
   },
   thunderStorm: {
     Component: ThunderstormIcon,
     width: "10px",
     height: "10px",
+    description: "Thunderstorms",
   },
   thunderStormRain: {
     Component: ThunderstormRainIcon,
     width: "10px",
     height: "10px",
+    description: "Thunderstorms and rain",
   },
   snow: {
     Component: SnowIcon,
     width: "10px",
     height: "10px",
+    description: "Snow",
   },
   hail: {
     Component: HailIcon,
     width: "10px",
     height: "10px",
+    description: "Hail",
   },
 };
