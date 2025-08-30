@@ -1,0 +1,14 @@
+@import "../../../scss/colours";
+
+.hourly-weather-list {
+  background-color: rgba($dark-blue, 0.25);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  display: grid;
+  grid-auto-columns: min-content;
+  grid-auto-flow: column;
+  grid-column-gap: 2.5rem;
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $dark-blue $blue;
+}
