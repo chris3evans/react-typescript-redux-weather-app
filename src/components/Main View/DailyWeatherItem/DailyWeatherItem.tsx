@@ -1,8 +1,7 @@
 import { IDailyWeatherItem } from "../../../type-interfaces/interfaces";
-import { DetailView } from "../../../views/DetailView/DetailView";
 import { Svg } from "../../Svg/Svg";
 import styles from "./DailyWeatherItem.module.scss";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function DailyWeatherItem({
   itemData,
@@ -22,9 +21,9 @@ export function DailyWeatherItem({
         </div>
         <div className={styles["daily-weather-bottom"]}>
           <div className={styles["daily-weather-temperatures"]}>
-            <p>{itemData.lowestTemperature} °C&nbsp;</p>
+            <p>{itemData.lowestTemperature}°C&nbsp;</p>
             <p>/</p>
-            <p>&nbsp;{itemData.highestTemperature} °C</p>
+            <p>&nbsp;{itemData.highestTemperature}°C</p>
           </div>
           <div className={styles["daily-weather-rain-chance"]}>
             <Svg svgFill="#ffffff" svgName="rain"></Svg>
