@@ -15,6 +15,8 @@ import { ReactComponent as ThunderstormIcon } from "../assets/svg-icons/thunders
 import { ReactComponent as ThunderstormRainIcon } from "../assets/svg-icons/thunderstorm-rain.svg";
 import { ReactComponent as SnowIcon } from "../assets/svg-icons/snow.svg";
 import { ReactComponent as HailIcon } from "../assets/svg-icons/hail.svg";
+import { ReactComponent as LeftArrow } from "../assets/svg-icons/left-arrow.svg";
+import { ReactComponent as RightArrow } from "../assets/svg-icons/right-arrow.svg";
 
 export interface SvgIcon {
   Component: FunctionComponent<SVGProps<SVGSVGElement>>;
@@ -26,6 +28,18 @@ export interface SvgIcon {
 export const SVG_ICONS: { [id: string]: SvgIcon } = {
   mapPin: {
     Component: MapPinIcon,
+    width: "10px",
+    height: "10px",
+    description: "",
+  },
+  leftArrow: {
+    Component: LeftArrow,
+    width: "10px",
+    height: "10px",
+    description: "",
+  },
+  rightArrow: {
+    Component: RightArrow,
     width: "10px",
     height: "10px",
     description: "",
