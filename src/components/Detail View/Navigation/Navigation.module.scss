@@ -1,0 +1,55 @@
+@import "../../../scss/colours";
+
+.navigation {
+  width: calc(100vw - 5rem);
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  grid-row-gap: 2rem;
+
+  Svg {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .day-navigation {
+    display: grid;
+    grid-template-columns: 75rem repeat(2, min-content);
+    grid-column-gap: 2.5rem;
+    align-items: center;
+
+    .day-navigation-button {
+      width: 17.5rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      color: $white;
+      background-color: $dark-blue;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: rgba($dark-blue, 0.5);
+      }
+
+      Svg {
+        height: 2rem;
+        width: 2rem;
+
+        path {
+          stroke: $white;
+        }
+
+        &:first-child {
+          margin-right: 1rem;
+        }
+        &:last-child {
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}
