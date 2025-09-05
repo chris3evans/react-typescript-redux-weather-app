@@ -167,5 +167,5 @@ export const formatWeatherIcon = function (weatherCode: number): string {
     return "thunderStormRain";
   }
 
-  return "";
+  return "sunny";
 };

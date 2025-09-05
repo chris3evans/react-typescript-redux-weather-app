@@ -6,9 +6,12 @@ import {
 
 export const WEATHER_API_URL: string = "https://api.open-meteo.com/v1/forecast";
 
-export const CURRENT_WEATHER_PARAMS: ICurrentWeatherParams = {
-  latitude: 51.5085,
-  longitude: -0.1257,
+export const current_weather_params = (
+  latitude: number,
+  longitude: number
+): ICurrentWeatherParams => ({
+  latitude,
+  longitude,
   models: "ukmo_seamless",
   current: [
     "temperature_2m",
@@ -23,22 +26,28 @@ export const CURRENT_WEATHER_PARAMS: ICurrentWeatherParams = {
     "wind_speed_10m",
     "surface_pressure",
   ],
-};
+});
 
-export const HOURLY_WEATHER_PARAMS: IHourlyWeatherParams = {
-  latitude: 51.5085,
-  longitude: -0.1257,
+export const hourly_weather_params = (
+  latitude: number,
+  longitude: number
+): IHourlyWeatherParams => ({
+  latitude,
+  longitude,
   hourly: "temperature_2m",
   models: "ukmo_seamless",
-};
+});
 
-export const DAILY_WEATHER_PARAMS: IDailyWeatherParams = {
-  latitude: 52.52,
-  longitude: 13.41,
+export const daily_weather_params = (
+  latitude: number,
+  longitude: number
+): IDailyWeatherParams => ({
+  latitude,
+  longitude,
   daily: [
     "temperature_2m_max",
     "temperature_2m_min",
     "weather_code",
     "rain_sum",
   ],
-};
+});

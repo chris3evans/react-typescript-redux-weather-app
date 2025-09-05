@@ -48,8 +48,6 @@ export const dailyWeatherSlice = createSlice({
         d.rainChance = Number(action.payload.daily.rain_sum[i].toFixed(2));
       });
 
-      console.log(days, "days");
-
       state.days = days;
     },
   },

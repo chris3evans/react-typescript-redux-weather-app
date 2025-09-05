@@ -12,8 +12,8 @@ import {
   fetchReverseGeoLocation,
 } from "../../api/weather-api-service";
 import {
-  CURRENT_WEATHER_PARAMS,
-  DAILY_WEATHER_PARAMS,
+  current_weather_params,
+  daily_weather_params,
   WEATHER_API_URL,
 } from "../../constants/weather-api-parameters";
 import { WeatherFeatures } from "../../components/Main View/WeatherFeatures/WeatherFeatures";
@@ -37,7 +37,10 @@ export function MainView() {
   } = useQuery({
     queryKey: ["current-weather"],
     queryFn: async () =>
-      fetchCurrentWeather(WEATHER_API_URL, CURRENT_WEATHER_PARAMS),
+      fetchCurrentWeather(
+        WEATHER_API_URL,
+        current_weather_params(coords.latitude, coords.longitude)
+      ),
   });
 
   const {
@@ -47,7 +50,10 @@ export function MainView() {
   } = useQuery({
     queryKey: ["daily-weather"],
     queryFn: async () =>
-      fetchDailyWeather(WEATHER_API_URL, DAILY_WEATHER_PARAMS),
+      fetchDailyWeather(
+        WEATHER_API_URL,
+        daily_weather_params(coords.latitude, coords.longitude)
+      ),
   });
 
   const { data: location } = useQuery({
