@@ -18,7 +18,8 @@ export interface ICurrentWeatherResponse {
 export interface IHourlyWeatherResponse {
   hourly: {
     time: string[];
-    temperature2m: number[];
+    temperature_2m: number[];
+    weather_code: number[];
   };
 }
 

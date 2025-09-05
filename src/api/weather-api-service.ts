@@ -63,7 +63,8 @@ export async function fetchHourlyWeather(
             1000
         ).toISOString()
       ),
-      temperature2m: Array.from(hourly.variables(0)!.valuesArray()!),
+      weather_code: Array.from(hourly.variables(0)!.valuesArray()!),
+      temperature_2m: Array.from(hourly.variables(1)!.valuesArray()!),
     },
   };
 }

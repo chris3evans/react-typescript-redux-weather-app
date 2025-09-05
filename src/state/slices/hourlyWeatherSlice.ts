@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IHourlyWeatherItem } from "../../type-interfaces/interfaces";
+import { formatWeatherIcon } from "../../services/utility";
 
 export interface IHourlyWeatherState {
   hours: IHourlyWeatherItem[];
@@ -15,7 +16,11 @@ export const hourlyWeatherSlice = createSlice({
   reducers: {
     setHours: (
       state,
-      action: PayloadAction<{ time: string[]; temperature2m: number[] }>
+      action: PayloadAction<{
+        time: string[];
+        temperature_2m: number[];
+        weather_code: number[];
+      }>
     ) => {
       const hours: IHourlyWeatherItem[] = [];
 
@@ -30,13 +35,16 @@ export const hourlyWeatherSlice = createSlice({
         hours.push({
           time: timeString,
           temperature: 0,
-          icon: "*ICON*",
+          icon: "",
         });
       });
 
       hours.forEach((h, i) => {
-        h.temperature = Number(action.payload.temperature2m[i].toFixed(2));
+        h.temperature = Number(action.payload.temperature_2m[i].toFixed(2));
+        h.icon = formatWeatherIcon(action.payload.weather_code[i]);
       });
+
+      console.log(hours, "hours");
 
       state.hours = hours;
     },

@@ -34,7 +34,7 @@ export const hourly_weather_params = (
 ): IHourlyWeatherParams => ({
   latitude,
   longitude,
-  hourly: "temperature_2m",
+  hourly: ["weather_code", "temperature_2m"],
   models: "ukmo_seamless",
 });
 

@@ -9,7 +9,7 @@ export interface IHourlyWeatherParams {
   latitude: number;
   longitude: number;
   models: string;
-  hourly: string;
+  hourly: string | string[];
 }
 
 export interface IDailyWeatherParams {
