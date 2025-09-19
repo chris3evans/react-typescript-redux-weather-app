@@ -23,28 +23,36 @@ export const hourlyWeatherSlice = createSlice({
       }>
     ) => {
       const hours: IHourlyWeatherItem[] = [];
+      const now = new Date();
 
-      action.payload.time.forEach((t) => {
-        const dateObject = new Date(t);
-        const timeString = dateObject.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        });
+      action.payload.time
+        .filter((t) => {
+          const tDate = new Date(t);
+          const milliSecondDifference = tDate.getTime() - now.getTime();
+          const hourDifference = Math.floor(
+            milliSecondDifference / (1000 * 60 * 60)
+          );
+          return hourDifference >= 0 && hourDifference <= 23;
+        })
+        .forEach((t) => {
+          const dateObject = new Date(t);
+          const timeString = dateObject.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
 
-        hours.push({
-          time: timeString,
-          temperature: 0,
-          icon: "",
+          hours.push({
+            time: timeString,
+            temperature: 0,
+            icon: "",
+          });
         });
-      });
 
       hours.forEach((h, i) => {
         h.temperature = Number(action.payload.temperature_2m[i].toFixed(2));
         h.icon = formatWeatherIcon(action.payload.weather_code[i]);
       });
-
-      console.log(hours, "hours");
 
       state.hours = hours;
     },
