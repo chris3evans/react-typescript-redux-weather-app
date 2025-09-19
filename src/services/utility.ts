@@ -71,13 +71,21 @@ export const formatCurrentWeatherIcon = function (
   return "sunny";
 };
 
-export const formatWeatherIcon = function (weatherCode: number): string {
+export const formatWeatherIcon = function (
+  weatherCode: number,
+  time: string
+): string {
+  const dateTime = new Date(time);
+  const hour = dateTime.getHours();
+
+  const isDay: boolean = hour >= 8 && hour <= 20 ? true : false;
+
   if (weatherCode === 1) {
-    return "sunny";
+    return isDay ? "sunny" : "clearNight";
   }
 
   if (weatherCode === 3) {
-    return "sunnyLittleCloud";
+    return isDay ? "sunnyLittleCloud" : "nightLittleCloud";
   }
 
   if (
@@ -88,7 +96,7 @@ export const formatWeatherIcon = function (weatherCode: number): string {
     weatherCode === 48 ||
     weatherCode === 49
   ) {
-    return "cloudyLittleSun";
+    return isDay ? "cloudyLittleSun" : "nightLotsCloud";
   }
 
   // cloudy
@@ -167,5 +175,5 @@ export const formatWeatherIcon = function (weatherCode: number): string {
     return "thunderStormRain";
   }
 
-  return "sunny";
+  return isDay ? "sunny" : "clearNight";
 };

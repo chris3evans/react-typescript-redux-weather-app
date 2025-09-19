@@ -24,34 +24,40 @@ export const hourlyWeatherSlice = createSlice({
     ) => {
       const hours: IHourlyWeatherItem[] = [];
       const now = new Date();
+      const weatherHourIndexes: number[] = [];
 
-      action.payload.time
-        .filter((t) => {
-          const tDate = new Date(t);
-          const milliSecondDifference = tDate.getTime() - now.getTime();
-          const hourDifference = Math.floor(
-            milliSecondDifference / (1000 * 60 * 60)
-          );
-          return hourDifference >= 0 && hourDifference <= 23;
-        })
-        .forEach((t) => {
-          const dateObject = new Date(t);
-          const timeString = dateObject.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          });
+      const filteredHours = action.payload.time.filter((t, i) => {
+        const tDate = new Date(t);
+        const milliSecondDifference = tDate.getTime() - now.getTime();
+        const hourDifference = Math.floor(
+          milliSecondDifference / (1000 * 60 * 60)
+        );
+        if (hourDifference >= 0 && hourDifference <= 23) {
+          weatherHourIndexes.push(i);
+          return true;
+        } else {
+          return false;
+        }
+      });
 
-          hours.push({
-            time: timeString,
-            temperature: 0,
-            icon: "",
-          });
+      filteredHours.forEach((t, i) => {
+        const dateObject = new Date(t);
+        const timeString = dateObject.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
         });
 
-      hours.forEach((h, i) => {
-        h.temperature = Number(action.payload.temperature_2m[i].toFixed(2));
-        h.icon = formatWeatherIcon(action.payload.weather_code[i]);
+        hours.push({
+          time: timeString,
+          temperature: Number(
+            action.payload.temperature_2m[weatherHourIndexes[i]].toFixed(2)
+          ),
+          icon: formatWeatherIcon(
+            action.payload.weather_code[weatherHourIndexes[i]],
+            action.payload.time[weatherHourIndexes[i]]
+          ),
+        });
       });
 
       state.hours = hours;
