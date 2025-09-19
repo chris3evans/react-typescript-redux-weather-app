@@ -177,3 +177,33 @@ export const formatWeatherIcon = function (
 
   return isDay ? "sunny" : "clearNight";
 };
+
+export const formatDateLong = function (date: Date): string {
+  const day: number = date.getDate();
+  const weekday: string = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+  }).format(date);
+  const month: string = new Intl.DateTimeFormat("en-GB", {
+    month: "long",
+  }).format(date);
+  const year: number = date.getFullYear();
+
+  return `${weekday}, ${day}${formatDaySuffix(day)} ${month}, ${year}`;
+};
+
+export const formatDaySuffix = function (day: number): string {
+  if (day > 3 && day < 21) {
+    return "th";
+  }
+
+  switch (day % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
+};

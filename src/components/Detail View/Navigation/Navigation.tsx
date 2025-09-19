@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.scss";
 import { Svg } from "../../Svg/Svg";
+import { formatDateLong } from "../../../services/utility";
 
 export function Navigation() {
   return (
@@ -9,7 +10,7 @@ export function Navigation() {
         <Svg svgFill="#ffffff" svgName="leftArrow"></Svg>
       </Link>
       <div className={styles["day-navigation"]}>
-        <h2>Saturday, 30th August 2025</h2>
+        <h2>{formatDateLong(new Date())}</h2>
         <button className={styles["day-navigation-button"]}>
           <Svg svgFill="#ffffff" svgName="leftArrow"></Svg>
           <p>Previous Day</p>
