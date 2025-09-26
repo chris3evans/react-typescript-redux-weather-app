@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { setHours } from "../../state/slices/hourlyWeatherSlice";
+import { WindDetails } from "../../components/Detail View/WindDetails/WindDetails";
 
 export function DetailView() {
   const latitude: number = useAppSelector(
@@ -40,7 +41,9 @@ export function DetailView() {
     <div className={styles["detail-view"]}>
       <Navigation />
       <HourlyWeatherSection />
-      <div className={styles["weather-metrics"]}></div>
+      <div className={styles["weather-metrics"]}>
+        <WindDetails></WindDetails>
+      </div>
     </div>
   );
 }

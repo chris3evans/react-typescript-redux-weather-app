@@ -25,6 +25,8 @@ export const current_weather_params = (
     "cloud_cover",
     "wind_speed_10m",
     "surface_pressure",
+    "wind_direction_10m",
+    "wind_gusts_10m",
   ],
 });
 

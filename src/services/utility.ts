@@ -207,3 +207,32 @@ export const formatDaySuffix = function (day: number): string {
       return "th";
   }
 };
+
+export const totalDegreesToCardinalDirection = function (
+  totalDegrees: number
+): string {
+  const normalisedDegrees: number = totalDegrees % 360;
+
+  const directions: string[] = [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+  ];
+
+  const directionIndex: number = Math.floor((normalisedDegrees + 11.25) / 22.5);
+
+  return directions[directionIndex % 16];
+};

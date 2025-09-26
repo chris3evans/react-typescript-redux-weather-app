@@ -11,6 +11,8 @@ export interface ICurrentWeatherResponse {
     temperature_2m: number;
     cloud_cover: number;
     wind_speed_10m: number;
+    wind_direction_10m: number;
+    wind_gusts_10m: number;
     surface_pressure: number;
   };
 }
