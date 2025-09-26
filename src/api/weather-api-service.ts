@@ -21,7 +21,6 @@ export async function fetchCurrentWeather(
   const data = response[0];
   const current = data.current()!;
   const utcOffsetSeconds = data.utcOffsetSeconds();
-
   return {
     current: {
       time: new Date(
@@ -51,7 +50,6 @@ export async function fetchHourlyWeather(
   const hourly = data.hourly()!;
   const utcOffsetSeconds = data.utcOffsetSeconds();
 
-  console.log("hourly weather refreshed");
   return {
     hourly: {
       time: [
