@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICurrentWeatherResponse } from "../../type-interfaces/api-return-interfaces";
-import { totalDegreesToCardinalDirection } from "../../services/utility";
+import {
+  totalDegreesToCardinalDirection,
+  totalDegreesToNormalisedDegrees,
+} from "../../services/utility";
 
 export interface ICurrentWeatherState {
   time: string;
@@ -15,6 +18,7 @@ export interface ICurrentWeatherState {
   cloudCover: number;
   windSpeed: number;
   windDirection: string;
+  windDirectionDegrees: number;
   windGusts: number;
   surfacePressure: number;
 }
@@ -32,6 +36,7 @@ const initialState: ICurrentWeatherState = {
   cloudCover: 0,
   windSpeed: 0,
   windDirection: "",
+  windDirectionDegrees: 0,
   windGusts: 0,
   surfacePressure: 0,
 };
@@ -53,6 +58,9 @@ export const currentWeatherSlice = createSlice({
       state.cloudCover = action.payload.current.cloud_cover;
       state.windSpeed = action.payload.current.wind_speed_10m;
       state.windDirection = totalDegreesToCardinalDirection(
+        action.payload.current.wind_direction_10m
+      );
+      state.windDirectionDegrees = totalDegreesToNormalisedDegrees(
         action.payload.current.wind_direction_10m
       );
       state.windGusts = action.payload.current.wind_gusts_10m;

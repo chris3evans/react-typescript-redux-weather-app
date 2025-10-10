@@ -236,3 +236,10 @@ export const totalDegreesToCardinalDirection = function (
 
   return directions[directionIndex % 16];
 };
+
+export const totalDegreesToNormalisedDegrees = function (
+  totalDegrees: number
+): number {
+  return totalDegrees % 360;
+};
+// direction works but still uses wrong initial data

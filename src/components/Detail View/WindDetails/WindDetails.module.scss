@@ -1,0 +1,42 @@
+@import "../../../scss/colours";
+
+.wind {
+  display: grid;
+  grid-template-rows: min-content 10rem;
+  grid-template-columns: 2fr 1fr;
+  background-color: $dark-blue;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+h4 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+
+.wind-details {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  background-color: $light-blue;
+}
+
+.wind-direction {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-rows: repeat(2, min-content);
+  justify-content: center;
+  background-color: $green;
+
+  .wind-axis {
+    text-align: center;
+    font-size: 2rem;
+    transform: rotate;
+  }
+
+  Svg {
+    height: 3rem;
+    width: auto;
+  }
+}
