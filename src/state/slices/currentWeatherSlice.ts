@@ -57,7 +57,9 @@ export const currentWeatherSlice = createSlice({
       state.snowfall = action.payload.current.snowfall;
       state.temperature2m = action.payload.current.temperature_2m;
       state.cloudCover = action.payload.current.cloud_cover;
-      state.windSpeed = action.payload.current.wind_speed_10m;
+      state.windSpeed = Number(
+        action.payload.current.wind_speed_10m.toFixed(2)
+      );
       state.windDirection = totalDegreesToCardinalDirection(
         action.payload.current.wind_direction_10m
       );
