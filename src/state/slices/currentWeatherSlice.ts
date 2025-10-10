@@ -67,7 +67,9 @@ export const currentWeatherSlice = createSlice({
         action.payload.current.wind_direction_10m
       );
       state.windGusts = action.payload.current.wind_gusts_10m;
-      state.surfacePressure = action.payload.current.surface_pressure;
+      state.surfacePressure = Number(
+        action.payload.current.surface_pressure.toFixed(2)
+      );
     },
   },
 });

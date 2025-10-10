@@ -1,0 +1,11 @@
+@import "../../../scss//colours";
+
+.pressure {
+  display: grid;
+  grid-template-rows: min-content 10rem;
+  grid-template-columns: 3fr 1fr;
+  background-color: $dark-blue;
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: 5px;
+}

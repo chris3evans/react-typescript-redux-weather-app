@@ -14,7 +14,7 @@ export const WindDetails = function () {
       <h3>Wind</h3>
       <div className={styles["wind-details"]}>
         <span className={styles["wind-speed"]}>
-          <span>{selectCurrentData.windSpeed}</span> km/h
+          <span>{selectCurrentData.windSpeed.toFixed(2)}</span> km/h
         </span>
         <h4>
           From <br /> <span>{selectCurrentData.windDirection.direction}</span>
