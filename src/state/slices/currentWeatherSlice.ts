@@ -4,6 +4,7 @@ import {
   totalDegreesToCardinalDirection,
   totalDegreesToNormalisedDegrees,
 } from "../../services/utility";
+import { WindDirection } from "../../type-interfaces/interfaces";
 
 export interface ICurrentWeatherState {
   time: string;
@@ -17,7 +18,7 @@ export interface ICurrentWeatherState {
   temperature2m: number;
   cloudCover: number;
   windSpeed: number;
-  windDirection: string;
+  windDirection: WindDirection;
   windDirectionDegrees: number;
   windGusts: number;
   surfacePressure: number;
@@ -35,7 +36,7 @@ const initialState: ICurrentWeatherState = {
   temperature2m: 0,
   cloudCover: 0,
   windSpeed: 0,
-  windDirection: "",
+  windDirection: { direction: "", directionCapitalised: "" },
   windDirectionDegrees: 0,
   windGusts: 0,
   surfacePressure: 0,

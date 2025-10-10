@@ -27,3 +27,8 @@ export interface IWeatherFeature {
     | "relative_humidity_2m"
     | "showers";
 }
+
+export interface WindDirection {
+  direction: string;
+  directionCapitalised: string;
+}

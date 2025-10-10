@@ -11,16 +11,19 @@ export const WindDetails = function () {
 
   return (
     <div className={styles["wind"] + " span-1"}>
-      <h4>Wind</h4>
+      <h3>Wind</h3>
       <div className={styles["wind-details"]}>
-        <span>12.0 km/h</span>
-        <h5>Light</h5>
-        <h5>
-          From <br /> Northwest
-        </h5>
+        <span className={styles["wind-speed"]}>
+          <span>{selectCurrentData.windSpeed.toFixed(2)}</span> km/h
+        </span>
+        <h4>
+          From <br /> <span>{selectCurrentData.windDirection.direction}</span>
+        </h4>
       </div>
       <div className={styles["wind-direction"]}>
-        <span className={styles["wind-axis"]}>N</span>
+        <span className={styles["wind-axis"]}>
+          {selectCurrentData.windDirection.directionCapitalised}
+        </span>
         <div style={windDirectionStyles}>
           <Svg svgFill="" svgName="windDirectionArrow" />
         </div>

@@ -1,4 +1,5 @@
 import { ICurrentWeatherState } from "../state/slices/currentWeatherSlice";
+import { WindDirection } from "../type-interfaces/interfaces";
 
 export const formatCurrentWeatherIcon = function (
   currentWeatherData: ICurrentWeatherState
@@ -210,26 +211,26 @@ export const formatDaySuffix = function (day: number): string {
 
 export const totalDegreesToCardinalDirection = function (
   totalDegrees: number
-): string {
+): WindDirection {
   const normalisedDegrees: number = totalDegrees % 360;
 
-  const directions: string[] = [
-    "N",
-    "NNE",
-    "NE",
-    "ENE",
-    "E",
-    "ESE",
-    "SE",
-    "SSE",
-    "S",
-    "SSW",
-    "SW",
-    "WSW",
-    "W",
-    "WNW",
-    "NW",
-    "NNW",
+  const directions: WindDirection[] = [
+    { direction: "North", directionCapitalised: "N" },
+    { direction: "North North East", directionCapitalised: "NNE" },
+    { direction: "North East", directionCapitalised: "NE" },
+    { direction: "East North East", directionCapitalised: "ENE" },
+    { direction: "East", directionCapitalised: "E" },
+    { direction: "East South East", directionCapitalised: "ESE" },
+    { direction: "South East", directionCapitalised: "SE" },
+    { direction: "South South East", directionCapitalised: "SSE" },
+    { direction: "South", directionCapitalised: "S" },
+    { direction: "South South West", directionCapitalised: "SSW" },
+    { direction: "South West", directionCapitalised: "SW" },
+    { direction: "West South West", directionCapitalised: "WSW" },
+    { direction: "West", directionCapitalised: "W" },
+    { direction: "West North West", directionCapitalised: "WNW" },
+    { direction: "North West", directionCapitalised: "NW" },
+    { direction: "North North West", directionCapitalised: "NNW" },
   ];
 
   const directionIndex: number = Math.floor((normalisedDegrees + 11.25) / 22.5);
