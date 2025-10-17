@@ -22,6 +22,7 @@ export interface IHourlyWeatherResponse {
     time: string[];
     temperature_2m: number[];
     weather_code: number[];
+    surface_pressure: number[];
   };
 }
 

@@ -3,6 +3,7 @@ import styles from "./PressureDetails.module.scss";
 
 export const PressureDetails = function () {
   const selectCurrentData = useAppSelector((state) => state.currentWeather);
+  const selectHourlyData = useAppSelector((state) => state.hourlyWeather);
 
   return (
     <div className={styles["pressure"]}>

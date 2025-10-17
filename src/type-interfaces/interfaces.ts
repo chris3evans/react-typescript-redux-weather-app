@@ -4,6 +4,7 @@ export interface IHourlyWeatherItem {
   time: string;
   icon: string;
   temperature: number;
+  surface_pressure: number;
 }
 
 export interface IDailyWeatherItem {

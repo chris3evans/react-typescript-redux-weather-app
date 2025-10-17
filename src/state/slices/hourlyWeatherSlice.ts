@@ -20,6 +20,7 @@ export const hourlyWeatherSlice = createSlice({
         time: string[];
         temperature_2m: number[];
         weather_code: number[];
+        surface_pressure: number[];
       }>
     ) => {
       const hours: IHourlyWeatherItem[] = [];
@@ -56,6 +57,9 @@ export const hourlyWeatherSlice = createSlice({
           icon: formatWeatherIcon(
             action.payload.weather_code[weatherHourIndexes[i]],
             action.payload.time[weatherHourIndexes[i]]
+          ),
+          surface_pressure: Number(
+            action.payload.surface_pressure[weatherHourIndexes[i]].toFixed(2)
           ),
         });
       });

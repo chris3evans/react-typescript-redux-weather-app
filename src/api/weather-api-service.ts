@@ -66,6 +66,7 @@ export async function fetchHourlyWeather(
       ),
       weather_code: Array.from(hourly.variables(0)!.valuesArray()!),
       temperature_2m: Array.from(hourly.variables(1)!.valuesArray()!),
+      surface_pressure: Array.from(hourly.variables(2)!.valuesArray()!),
     },
   };
 }
